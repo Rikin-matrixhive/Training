@@ -1,0 +1,41 @@
+<script>
+    function rgb() {
+    
+        var r = document.getElementById("red").value
+       document.getElementById("sideid1").style.backgroundColor =
+       "rgb("+document.getElementById("red").value ;  
+
+       var g = document.getElementById("green").value
+       document.getElementById("sideid2").style.backgroundColor =
+       "rgb("+document.getElementById("green").value ;  
+
+       var b = document.getElementById("blue").value
+       document.getElementById("sideid3").style.backgroundColor =
+       "rgb("+document.getElementById("blue").value ;   
+
+
+       document.getElementById("id1").style.backgroundColor =
+       "rgb("+document.getElementById("red").value+","
+       +document.getElementById("green").value+","
+       +document.getElementById("blue").value+")";
+        
+     }
+
+     </script>
+                 
+                     <textarea id="id1" cols="50" rows="10"></textarea>
+                     <!-- RGB value boxes !-->
+                    <br>    
+                    <br>
+                   <label for="">R:</label>  
+                     <input id="red" type=text size=3 maxlength=3 name="r" value="0" onBlur="rgb()"> <input type="hidden"  id="sideid1">
+                     <br>    
+
+                    <label for="">G:</label>  
+
+                     <input id="green" type=text size=3 maxlength=3 name="g" value="0" onBlur="rgb()"> <input type="hidden"  id="sideid2">
+                     <br>    
+
+                     <label for="">B:</label>
+                     <input id="blue" type=text size=3 maxlength=3 name="b" value="0" onBlur="rgb()"><input type="hidden"  id="sideid3">
+      

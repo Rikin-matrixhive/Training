@@ -11,29 +11,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celsius to fahrenhit converter</title>
+    <title>Seconds to minutes converter</title>
 </head>
 
 <body>
     <div class="form">
         <form action="">
             <label for="">Seconds</label>
-            <input type="text" onchange="convert('C')" id="c">
+            <input type="text" onchange="seconds()" id="second">
             <label for="">Minutes</label>
 
-            <input type="text" onchange="convert('f')" id="f">
+            <input type="text" id="minutes" readonly>
         </form>
     </div>
     <script>
-        function convert(degree) {
-            var x;
-            if (degree == "C") {
-                x = document.getElementById("c").value * 9 / 5 + 32;
-                document.getElementById("f").value = Math.round(x);
-            } else {
-                x = (document.getElementById("f").value - 32) * 5 / 9;
-                document.getElementById("c").value = Math.round(x);
-            }
+        function seconds(){
+            var a = document.getElementById("second").value /60;
+            document.getElementById("minutes").value = a;
         }
     </script>
 </body>

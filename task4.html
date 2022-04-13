@@ -16,13 +16,48 @@
 
 <body>
     <div class="form">
+
         <form action="">
+       <center>    <select name="" id="">
+                <option value="" >Temprature converter</option>
+                <option value="">Time converter</option>
+            </select>
+        </center> 
+            <br>
             <label for="">Celsius</label>
             <input type="text" onchange="convert('C')" id="c">
-            <label for="">Fahrenhit</label>
+            <select name="" id="">
+                <option value="" onclick="click1()">Farenhit</option>
+                <option value="">Celsius</option>
+            </select>
 
+            <label for="">= Fahrenhit</label>
             <input type="text" onchange="convert('f')" id="f">
+            <select name="" id="">
+                <option value="">Farenhit</option>
+                <option value="">Celsius</option>
+            </select>
+            <br>
         </form>
+        <form action="">
+            <center>  
+             </center> 
+                 <br>
+                 <label for="">Seconds</label>
+                 <input type="text" onchange="click1('S')" id="s">
+                 <select name="" id="">
+                     <option value="" >Farenhit</option>
+                     <option value="">Celsius</option>
+                 </select>
+     
+                 <label for="">= Minutes</label>
+                 <input type="text" onchange="click1('M')" id="m">
+                 <select name="" id="">
+                     <option value="">Farenhit</option>
+                     <option value="">Celsius</option>
+                 </select>
+                 <br>
+             </form>
     </div>
     <script>
         function convert(degree) {
@@ -35,6 +70,20 @@
                 document.getElementById("c").value = Math.round(x);
             }
         }
+
+        function click1(time){
+            var y;
+            if(time == "S"){
+                y = document.getElementById("s").value /60;
+                document.getElementById("m").value = y;
+
+            }
+            else{
+                z = document.getElementById("m").value *60;
+                document.getElementById("s").value = z;
+            }
+        }
+
     </script>
 </body>
 
