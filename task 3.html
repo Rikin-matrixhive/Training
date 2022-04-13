@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+         body {
+            background-color: rgb(220, 228, 255);
+
+        }
+
+        .form {
+            margin-top: 308px;
+            margin-left: 455px;
+            ;
+        }
+
+        button {
+            height: 55px;
+            background-color:dodgerblue;
+            color:white;
+            border-radius: 46px;
+          width: 150px;
+        }
+        p{
+            margin-left: 251px;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3</title>
+</head>
+
+<body>
+    <div class="form">
+    <form action="">
+        <label for="">Price</label>
+        <input type="text" id="price" onkeydown="showprice()">
+        *
+        <label for="">Quantity</label>
+        <input type="text" id="quantity" onkeydown="showprice()">
+        <p id="showvalue"></p>
+    </div>
+    </form>
+    <script>
+        function showprice() {
+            var a = document.getElementById('price').value;
+            var b = document.getElementById('quantity').value;
+           document.getElementById("showvalue").innerHTML = a*b;
+        }
+
+        
+
+    </script>
+</body>
+
+</html>
