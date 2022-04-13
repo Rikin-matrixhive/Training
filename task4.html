@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .form {
+            margin-top: 336px;
+            margin-left: 335px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celsius to fahrenhit converter</title>
+</head>
+
+<body>
+    <div class="form">
+        <form action="">
+            <label for="">Celsius</label>
+            <input type="text" onchange="convert('C')" id="c">
+            <label for="">Fahrenhit</label>
+
+            <input type="text" onchange="convert('f')" id="f">
+        </form>
+    </div>
+    <script>
+        function convert(degree) {
+            var x;
+            if (degree == "C") {
+                x = document.getElementById("c").value * 9 / 5 + 32;
+                document.getElementById("f").value = Math.round(x);
+            } else {
+                x = (document.getElementById("f").value - 32) * 5 / 9;
+                document.getElementById("c").value = Math.round(x);
+            }
+        }
+    </script>
+</body>
+
+</html>
