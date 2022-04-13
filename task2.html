@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            background-color: rgb(220, 228, 255);
+
+        }
+
+        .hideandshow {
+            margin-top: 308px;
+            margin-left: 455px;
+            ;
+        }
+
+        button {
+            height: 55px;
+            background-color:dodgerblue;
+            color:white;
+            border-radius: 46px;
+          width: 150px;
+        }
+        p{
+            margin-right: 404px;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is task 2</title>
+</head>
+
+<body>
+    <div class="hideandshow"> 
+        <center><p id="text">You can show and hide me with this button</p></center>
+
+        <button id="show" onclick="showing()" >Show</button> <button id="hide" onclick="hiding()">Hide</button>
+    </div>
+</body>
+<script>fdf
+
+    function showing(){
+        var x = document.getElementById("text");
+        var a = document.getElementById("show");
+
+        if(x.style.display = 'block'){
+            x.style.display = 'block';
+        }
+       
+    }
+    function hiding(){
+        var y = document.getElementById("text");
+        var z  = document.getElementById("hide");
+
+        if(y.style.display = 'none'){
+            y.style.display = 'none';
+        }
+     
+    }
+</script>
+
+</html>
