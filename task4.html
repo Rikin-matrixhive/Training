@@ -17,17 +17,17 @@
 <div class="container"></div>
 <input type="number" onchange="convert('C')" id="c" style="width: 326px; margin-left:240px;" class="form-control">
 <br>
-<select onchange="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
+<select onclick="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
     <option value="Fahrenhit">Fahrenhit</option>
     <option value="Celsius">Celsius</option>
 </select>
 <br>
 <input type="text" onchange="convert('f')" id="f" style="width: 326px;margin-left: 580px; margin-top: -123px;" class="form-control">
 <br>
-<select onchange="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
+<select onclick="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
 margin-top:0px;">
-    <option value="Fahrenhit">Fahrenhit</option>
     <option value="Celsius">Celsius</option>
+    <option value="Fahrenhit">Fahrenhit</option>
 </select>
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -36,27 +36,35 @@ margin-top:0px;">
     //    var fah= document.getElementById("fah");
     //    var cel = document.getElementById("cel");
        if(option.value== "Fahrenhit"){
+        x = document.getElementById("c").value * 9 / 5 + 32;
+        document.getElementById("c").value = parseInt(x);
+
            document.getElementById("demo2").value="Celsius";
-           x = document.getElementById("c").value * 9 / 5 + 32;
-                document.getElementById("f").value = parseFloat(x);
+
+
+          
        }
        else{
            document.getElementById("demo2").value="Fahrenhit"
-           x = (document.getElementById("f").value - 32) * 5 / 9;
-                document.getElementById("c").value = parseInt(x);
+           x = (document.getElementById("c").value - 32) * 5 / 9;
+           document.getElementById("c").value = parseFloat(x);
+
+        
        }
+
     }
 function demofun1(){
        var option= document.getElementById("demo2");
-       if(option.value== "Fahrenhit"){
-           document.getElementById("demo1").value="Celsius";
-           x = document.getElementById("c").value * 9 / 5 + 32;
-                document.getElementById("f").value = parseFloat(x);
+       if(option.value== "Celsius"){
+           document.getElementById("demo1").value="Fahrenhit";
+           
+           x = (document.getElementById("f").value - 32) * 5 / 9;
+           document.getElementById("f").value = parseFloat(x);
        }
        else{
-           document.getElementById("demo1").value="Fahrenhit"
-           x = (document.getElementById("f").value - 32) * 5 / 9;
-                document.getElementById("c").value = parseInt(x);
+           document.getElementById("demo1").value="Celsius"
+           x = document.getElementById("f").value * 9 / 5 + 32;
+        document.getElementById("f").value = parseInt(x);
        }
     }
     

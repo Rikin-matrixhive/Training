@@ -1,41 +1,109 @@
-<script>
-    function rgb() {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <style>
     
-        var r = document.getElementById("red").value
-       document.getElementById("sideid1").style.backgroundColor =
-       "rgb("+document.getElementById("red").value ;  
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rgb color maker</title>
+</head>
 
-       var g = document.getElementById("green").value
-       document.getElementById("sideid2").style.backgroundColor =
-       "rgb("+document.getElementById("green").value ;  
+<body>
 
-       var b = document.getElementById("blue").value
-       document.getElementById("sideid3").style.backgroundColor =
-       "rgb("+document.getElementById("blue").value ;   
+  <div class="container">
+    <textarea id="id1" cols="50" rows="10" readonly></textarea>
+    <!-- RGB value boxes !-->
+    <br>
+    <br>
+    <label for="">R:</label>
+    <input id="red" type=text size=3 maxlength=3 name="r" value="0" onBlur="rgb()"> <input type="hidden"
+      id="sideid1">
+      <span id="r"> 100</span>
+      <input type="range" id="r1" min="0" max="255" onmouseleave="slider()">
+    <br>
+
+    <label for="">G:</label>
+
+    <input id="green" type=text size=3 maxlength=3 name="g" value="0" onBlur="rgb()"> <input type="hidden"
+      id="sideid2">
+      <span>100</span>
+
+      <input type="range" id="r2" min="0" max="255" onmouseleave="slider1()">
+    <br>
+
+    <label for="">B:</label>
+    <input id="blue" type=text size=3 maxlength=3 name="b" value="0" onBlur="rgb()"><input type="hidden"
+      id="sideid3">
+      <span>100</span>
+
+      <input type="range" id="r3" min="0" max="255" onmouseleave="slider2()">
+
+  </div>
 
 
-       document.getElementById("id1").style.backgroundColor =
-       "rgb("+document.getElementById("red").value+","
-       +document.getElementById("green").value+","
-       +document.getElementById("blue").value+")";
-        
-     }
+  <script>
+    function rgb() {
 
-     </script>
-                 
-                     <textarea id="id1" cols="50" rows="10"></textarea>
-                     <!-- RGB value boxes !-->
-                    <br>    
-                    <br>
-                   <label for="">R:</label>  
-                     <input id="red" type=text size=3 maxlength=3 name="r" value="0" onBlur="rgb()"> <input type="hidden"  id="sideid1">
-                     <br>    
+      var r = document.getElementById("red").value
+      document.getElementById("sideid1").style.backgroundColor =
+        "rgb(" + document.getElementById("red").value;
 
-                    <label for="">G:</label>  
+      var g = document.getElementById("green").value
+      document.getElementById("sideid2").style.backgroundColor =
+        "rgb(" + document.getElementById("green").value;
 
-                     <input id="green" type=text size=3 maxlength=3 name="g" value="0" onBlur="rgb()"> <input type="hidden"  id="sideid2">
-                     <br>    
+      var b = document.getElementById("blue").value
+      document.getElementById("sideid3").style.backgroundColor =
+        "rgb(" + document.getElementById("blue").value;
 
-                     <label for="">B:</label>
-                     <input id="blue" type=text size=3 maxlength=3 name="b" value="0" onBlur="rgb()"><input type="hidden"  id="sideid3">
-      
+
+      document.getElementById("id1").style.backgroundColor =
+        "rgb(" + document.getElementById("red").value + ","
+        + document.getElementById("green").value + ","
+        + document.getElementById("blue").value + ")";
+
+      var range = document.getElementById("red").value;
+      document.getElementById("r1").value = range;
+
+      var range = document.getElementById("green").value;
+      document.getElementById("r2").value = range;
+
+
+      var range = document.getElementById("blue").value;
+      document.getElementById("r3").value = range;
+
+
+    }
+  function slider(){
+    var slider= document.getElementById("r1").value;
+    document.getElementById("red").value = slider
+
+    
+
+
+  }
+  function slider1(){
+    var slider= document.getElementById("r2").value;
+    document.getElementById("green").value = slider
+
+
+  }
+  function slider2(){
+    var span1= document.getElementById("blue").value;
+    console.log(span1);
+    var slider= document.getElementById("r3").value;
+    document.getElementById("blue").value = slider
+
+
+  }
+
+  </script>
+</body>
+
+</html>

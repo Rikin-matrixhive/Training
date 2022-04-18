@@ -19,8 +19,8 @@
 <input type="text" onchange="click1('S')" id="s" style="width: 326px; margin-left:240px;" class="form-control">
 
 <select onchange="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
-    <option value="Minutes">Minutes</option>
     <option value="Seconds">Seconds</option>
+    <option value="Minutes">Minutes</option>
 </select>
 <br>
 <br>
@@ -28,8 +28,8 @@
 
 <select onchange="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
 margin-top:0px;">
-    <option value="Seconds">Seconds</option>
     <option value="Minutes">Minutes</option>
+    <option value="Seconds">Seconds</option>
 </select>
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -40,12 +40,12 @@ margin-top:0px;">
        if(option.value== "Minutes"){
            document.getElementById("demo2").value="Seconds";
            y = document.getElementById("s").value /60;
-                document.getElementById("m").value = y;
+                document.getElementById("s").value = y;
         
        }
        else{
            document.getElementById("demo2").value="Minutes"
-           z = document.getElementById("m").value *60;
+           z = document.getElementById("s").value *60;
                 document.getElementById("s").value = z;
         
        }
@@ -55,14 +55,17 @@ function demofun1(){
        var option= document.getElementById("demo2");
        if(option.value== "Seconds"){
            document.getElementById("demo1").value="Minutes";
-           y = document.getElementById("s").value /60;
+        
+
+           y = document.getElementById("m").value /60;
                 document.getElementById("m").value = y;
         
        }
        else{
+        y = document.getElementById("m").value *60;
+                document.getElementById("m").value = y;
            document.getElementById("demo1").value="Seconds";
-           z = document.getElementById("m").value *60;
-                document.getElementById("s").value = z;
+           
         
        }
     }
