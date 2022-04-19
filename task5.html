@@ -55,8 +55,6 @@ function demofun1(){
        var option= document.getElementById("demo2");
        if(option.value== "Seconds"){
            document.getElementById("demo1").value="Minutes";
-        
-
            y = document.getElementById("m").value /60;
                 document.getElementById("m").value = y;
         
@@ -65,7 +63,8 @@ function demofun1(){
         y = document.getElementById("m").value *60;
                 document.getElementById("m").value = y;
            document.getElementById("demo1").value="Seconds";
-           
+           z = document.getElementById("m").value *60;
+                document.getElementById("m").value = z;
         
        }
     }
