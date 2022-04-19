@@ -40,12 +40,12 @@ margin-top:0px;">
        if(option.value== "Minutes"){
            document.getElementById("demo2").value="Seconds";
            y = document.getElementById("s").value /60;
-                document.getElementById("m").value = y;
+                document.getElementById("s").value = y;
         
        }
        else{
            document.getElementById("demo2").value="Minutes"
-           z = document.getElementById("m").value *60;
+           z = document.getElementById("s").value *60;
                 document.getElementById("s").value = z;
         
        }
@@ -55,7 +55,7 @@ function demofun1(){
        var option= document.getElementById("demo2");
        if(option.value== "Seconds"){
            document.getElementById("demo1").value="Minutes";
-           y = document.getElementById("s").value /60;
+           y = document.getElementById("m").value /60;
                 document.getElementById("m").value = y;
         
        }
