@@ -16,17 +16,17 @@
 <body>
 <div class="container"></div>
 <br>
-<input type="text" onchange="click1('S')" id="s" style="width: 326px; margin-left:240px;" class="form-control">
+<input type="text" oninput="click1('S')" id="s" style="width: 326px; margin-left:240px;" class="form-control">
 
-<select onchange="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
+<select onclick="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
     <option value="Seconds">Seconds</option>
     <option value="Minutes">Minutes</option>
 </select>
 <br>
 <br>
-<input type="text" onchange="click1('M')" id="m"  style="width: 326px;margin-left: 580px; margin-top: -123px;" class="form-control">
+<input type="text" oninput="click1('M')" id="m"  style="width: 326px;margin-left: 580px; margin-top: -123px;" class="form-control">
 
-<select onchange="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
+<select onclick="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
 margin-top:0px;">
     <option value="Minutes">Minutes</option>
     <option value="Seconds">Seconds</option>
@@ -37,34 +37,33 @@ margin-top:0px;">
         var y;
        var option= document.getElementById("demo1");
    
-       if(option.value== "Minutes"){
-           document.getElementById("demo2").value="Seconds";
-           y = document.getElementById("s").value /60;
-                document.getElementById("s").value = y;
+       if(option.value== "Seconds"){
+           document.getElementById("demo2").value="Minutes";
+           z = document.getElementById("s").value /60;
+                document.getElementById("m").value = z;
         
        }
        else{
-           document.getElementById("demo2").value="Minutes"
-           z = document.getElementById("s").value *60;
-                document.getElementById("s").value = z;
+           document.getElementById("demo2").value="Seconds"
+           y = document.getElementById("s").value *60;
+                document.getElementById("m").value = y;
         
        }
     }
 function demofun1(){
-    var y;
+        var y;
        var option= document.getElementById("demo2");
-       if(option.value== "Seconds"){
-           document.getElementById("demo1").value="Minutes";
-           y = document.getElementById("m").value /60;
-                document.getElementById("m").value = y;
+   
+       if(option.value== "Minutes"){
+           document.getElementById("demo1").value="Seconds";
+           y = document.getElementById("m").value *60;
+                document.getElementById("s").value = y;
         
        }
        else{
-        y = document.getElementById("m").value *60;
-                document.getElementById("m").value = y;
-           document.getElementById("demo1").value="Seconds";
-           z = document.getElementById("m").value *60;
-                document.getElementById("m").value = z;
+           document.getElementById("demo1").value="Minutes"
+           z = document.getElementById("m").value /60;
+                document.getElementById("s").value = z;
         
        }
     }

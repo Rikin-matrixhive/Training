@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
-        .container{
+        .container {
             border: 2px solid white;
-                background: black;
-                width: 180px;   
+            background: black;
+            width: 180px;
         }
-        button{
+
+        button {
             width: 66px;
-    height: 36px;
+            height: 36px;
         }
-        span{
+
+        span {
             font-size: 20px;
             color: white;
         }
@@ -21,29 +24,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>task 8</title>
 </head>
+
 <body>
     <center>
 
-    <div class="container">
-        <button onclick="increment()"> + </button><span id="result"></span>
-        <button onclick="decrement()"> - </button>
-    </div>
+        <div class="container">
+            <button onclick="increment('inc')" id="inc"> + </button><span id="result"></span>
+            <button onclick="increment('dec')" id="dec"> - </button>
+        </div>
     </center>
 
-    
-      <script>
-          var data = 0;
-          function increment(){
-              data= data + 1 ;
-              document.getElementById('result').innerText=data;
-    
-          }
-          function decrement(){
-              data= data  -1 ;
-              document.getElementById('result').innerText=data;
-    
-          }
-      </script>
-    
+
+    <script>
+        var data = 0;
+
+        function increment(numbers) {
+
+            if (numbers == "inc") {
+                data = data + 1;
+                document.getElementById('result').innerText = data;
+            }
+            else {
+                data = data - 1;
+                document.getElementById('result').innerText = data;
+            }
+        }
+
+    </script>
+
 </body>
+
 </html>

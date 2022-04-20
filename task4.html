@@ -15,56 +15,60 @@
 </head>
 <body>
 <div class="container"></div>
-<input type="number" onchange="convert('C')" id="c" style="width: 326px; margin-left:240px;" class="form-control">
+<input type="number" oninput="convert('C')" id="c" style="width: 326px; margin-left:240px;" class="form-control">
 <br>
 <select onclick="demofun()" id="demo1" class="form-select" style="width: 326px; margin-left:240px;">
-    <option value="Fahrenhit">Fahrenhit</option>
     <option value="Celsius">Celsius</option>
+
+    <option value="Fahrenhit">Fahrenhit</option>
 </select>
 <br>
-<input type="text" onchange="convert('f')" id="f" style="width: 326px;margin-left: 580px; margin-top: -123px;" class="form-control">
+<input type="text" oninput="convert('f')" id="f" style="width: 326px;margin-left: 580px; margin-top: -123px;" class="form-control">
 <br>
 <select onclick="demofun1()" id="demo2" class="form-select" style="width: 326px; margin-left: 580px;
 margin-top:0px;">
-    <option value="Celsius">Celsius</option>
     <option value="Fahrenhit">Fahrenhit</option>
+
+    <option value="Celsius">Celsius</option>
 </select>
 </div>
 <script type="text/javascript" charset="utf-8">
-    function demofun(){
-       var option= document.getElementById("demo1");
-    //    var fah= document.getElementById("fah");
-    //    var cel = document.getElementById("cel");
-       if(option.value== "Fahrenhit"){
-        x = document.getElementById("c").value * 9 / 5 + 32;
-        document.getElementById("c").value = parseInt(x);
+         function demofun(){
+           var option= document.getElementById("demo1");
+           var fah= document.getElementById("fah");
+           var cel = document.getElementById("cel");
+           if(option.value== "Celsius"){
+            x = document.getElementById("c").value * 9 / 5 + 32;
+            document.getElementById("f").value = parseInt(x);
 
-           document.getElementById("demo2").value="Celsius";
+               document.getElementById("demo2").value="Fahrenhit";
+           }
+           else{
+            x = (document.getElementById("c").value - 32) * 5 / 9;
 
+               document.getElementById("f").value = parseFloat(x);
+               document.getElementById("demo2").value="Celsius";
 
-          
-       }
-       else{
-           document.getElementById("demo2").value="Fahrenhit"
-           x = (document.getElementById("c").value - 32) * 5 / 9;
-           document.getElementById("c").value = parseFloat(x);
+            
+           }
 
-        
-       }
-
-    }
+        }
 function demofun1(){
        var option= document.getElementById("demo2");
-       if(option.value== "Celsius"){
-           document.getElementById("demo1").value="Fahrenhit";
-           
+       if(option.value== "Fahrenhit"){
+           document.getElementById("demo1").value="Celsius";
            x = (document.getElementById("f").value - 32) * 5 / 9;
-           document.getElementById("f").value = parseFloat(x);
+
+
+           document.getElementById("c").value = parseFloat(x);
        }
        else{
-           document.getElementById("demo1").value="Celsius"
+           document.getElementById("demo1").value="Fahrenhit"
            x = document.getElementById("f").value * 9 / 5 + 32;
-        document.getElementById("f").value = parseInt(x);
+
+
+
+        document.getElementById("c").value = parseInt(x);
        }
     }
     
@@ -73,6 +77,7 @@ function demofun1(){
           var x= "";
             if (degree == "C") {
                 x = document.getElementById("c").value * 9 / 5 + 32;
+
                 document.getElementById("f").value = parseFloat(x);
             } else {
                 x = (document.getElementById("f").value - 32) * 5 / 9;
