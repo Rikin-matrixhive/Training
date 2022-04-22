@@ -1,56 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <style>
-        #btnlist2 {
-            display: flex;
+        .clonedInput {
 
+            margin:7px;
+
+        }
+
+        .cloning {
+
+            display: flex;
+            margin:2px;
         }
     </style>
+    <title>Clone</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clone button</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 </head>
 
-<body>
-    <button class="btn btn-primary" onclick="cloning()">Add</button>
-    <br>
-    <br>
 
-    <ul id="btnlist">
-        <button onclick="increment()" class="btn btn-primary" id="inc"> + </button><span id="result"
-            style="padding: 12px;"></span>
-        <button onclick="decrement()" class="btn btn-primary" id="dec"> - </button>
-    </ul>
-    <li><span id="btnlist2"></span></p>
-    </li>
+<body>
+    <div>
+        <input type='button' id='btn_add' value='New' class="btn btn-primary">
+    </div>
+    <br>
+    <div class='clonedInput' id="clonedInput2">
+        <button class="increment btn btn-primary"> + </button>
+        <span class="counting">0</span>
+        <button class="decrement btn btn-primary">-</button>
+
+    </div>
+    <!-- <div class='clonedInput' ></div>
+    </div> -->
+    <div class="cloning"></div>
 
     <script>
-        function cloning() {
+        $(document).ready(function () {
 
-           var id = "";
-            const node = document.getElementById("btnlist");
-           
-            const clone = node.cloneNode(true);
-            
-            document.getElementById("btnlist2").appendChild(clone);
-          
-        }
-        var data = 0;
-        function increment() {
-            data = data + 1;
-            document.getElementById('result').innerText = data;
+            $(".increment").live("click", function () {
+                var value = ($(this).parent(".clonedInput").find(".counting")[0].innerHTML);
+                value++;
+                $(this).parent(".clonedInput").find(".counting")[0].innerHTML = value;
+            })
+        }),
+            $(".decrement").live("click", function () {
+                var value = ($(this).parent(".clonedInput").find(".counting")[0].innerHTML);
+                value--;
+                $(this).parent(".clonedInput").find(".counting")[0].innerHTML = value;
+            })
+        var count = 0;
+        $('#btn_add').click(function () {
+            console.log(count++);
 
-        }
-        function decrement() {
-            data = data - 1;
-            document.getElementById('result').innerText = data;
-
-        }
+            $(".clonedInput:first").clone(true).appendTo(".cloning");
+        });
     </script>
 </body>
 
