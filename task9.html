@@ -24,7 +24,7 @@
 
 <body>
     <div>
-        <input type='button' id='btn_add' value='New' class="btn btn-primary">
+        <input type='button' id='newbtn' value='New' class="btn btn-primary">
     </div>
     <br>
     <div class='clonedInput' id="clonedInput2">
@@ -52,7 +52,7 @@
                 $(this).parent(".clonedInput").find(".counting")[0].innerHTML = value;
             })
         var count = 0;
-        $('#btn_add').click(function () {
+        $('#newbtn').click(function () {
             console.log(count++);
 
             $(".clonedInput:first").clone(true).appendTo(".cloning");
