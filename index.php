@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +26,37 @@
 <select class="form-control" id="country-dropdown" class="form-select">
 <option value="">Select Country</option>
 <?php
-require_once "db.php";
-$result = mysqli_query($conn,"SELECT * FROM countries");
-while($row = mysqli_fetch_array($result)) {
+class xyz{
+  public $db_conn;
+  function __construct() {
+      $servername='localhost';
+      $username='root';
+      $password='12345';
+      $dbname = "country_city_statedetails";
+      $this->db_conn=mysqli_connect($servername,$username,$password,"$dbname");
+        if($this->db_conn){
+            echo "connected";
+          }
+      }
+    function get_city() {
+        $arr = array();
+       // print_r($row);
+        $result = mysqli_query($this->db_conn,"SELECT * FROM `countries`");
+               while($row = mysqli_fetch_array($result)) {
+                    array_push($arr, $row);
+                 print_r($arr);
+      }
+      return $result;
+     }
+  }
+  $obj = new xyz();
+  $data = $obj->get_city();
+    foreach($data as $row) {
 ?>
-<option value="<?php echo $row['id'];?>"><?php echo $row["name"];?></option>
+<option value="<?php echo $row['id'];?>"><?php echo $row['name'];?></option>
 <?php
-}
+  }
+?>
 ?>
 </select>
 </div>
