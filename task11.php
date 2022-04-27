@@ -26,6 +26,11 @@
 
         <div class="card-body">
             <form action="" method="POST">
+            <center><select name="" id="" class="form-select" style="width:80%;" multiple="multiple">
+                        <option value="">Select city</option>
+                        </select>
+                        <br>
+                    <br>
                 <center><select name="" id="" class="form-select" style="width:80%;" multiple="multiple">
                         <option value="">Select city</option>
                         <?php
@@ -42,12 +47,10 @@
                                     }
                                 }
                               function get_city() {
-                                  $arr = array();
-                                 // print_r($row);
+                                 //  $arr = array();
                                   $result = mysqli_query($this->db_conn,"SELECT * FROM `city`");
                                          while($row = mysqli_fetch_array($result)) {
-                                              array_push($arr, $row);
-                                           print_r($arr);
+                                        
                                 }
                                 return $result;
                                }
