@@ -40,10 +40,11 @@
     <script>
         $(document).ready(function () {
 
-            $(".increment").live("click", function () {
+            $(".increment").click("click", function () {
                 var value = ($(this).parent(".clonedInput").find(".counting")[0].innerHTML);
                 value++;
                 $(this).parent(".clonedInput").find(".counting")[0].innerHTML = value;
+                
             })
         }),
             $(".decrement").live("click", function () {
@@ -51,12 +52,7 @@
                 value--;
                 $(this).parent(".clonedInput").find(".counting")[0].innerHTML = value;
             })
-        var count = 0;
-        $('#newbtn').click(function () {
-            console.log(count++);
-
-            $(".clonedInput:first").clone(true).appendTo(".cloning");
-        });
+      
     </script>
 </body>
 
