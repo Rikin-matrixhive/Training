@@ -26,91 +26,93 @@
 
         <div class="card-body">
             <form action="" method="POST">
-            <center><select name="" id="" class="form-select" style="width:80%;" multiple="multiple">
-                        <option value="">Select city</option>
-                        </select>
-                        <br>
-                    <br>
                 <center><select name="" id="" class="form-select" style="width:80%;" multiple="multiple">
                         <option value="">Select city</option>
-                        <?php
-                        class xyz{
-                            public $db_conn;
-                            function __construct() {
-                                $servername='localhost';
-                                $username='root';
-                                $password='12345';
-                                $dbname = "country_city_statedetails";
-                                $this->db_conn=mysqli_connect($servername,$username,$password,"$dbname");
-                                  if($this->db_conn){
-                                      echo "connected";
+                    </select>
+                    <br>
+                    <br>
+                    <center><select name="" id="" class="form-select" style="width:80%;" multiple="multiple">
+                            <option value="">Select city</option>
+                            <?php
+                            class xyz
+                            {
+                                public $db_conn;
+                                function __construct()
+                                {
+                                    $servername = 'localhost';
+                                    $username = 'root';
+                                    $password = '12345';
+                                    $dbname = "country_city_statedetails";
+                                    $this->db_conn = mysqli_connect($servername, $username, $password, "$dbname");
+                                    if ($this->db_conn) {
+                                        echo "connected";
                                     }
                                 }
-                              function get_city() {
-                                 //  $arr = array();
-                                  $result = mysqli_query($this->db_conn,"SELECT * FROM `city`");
-                                         while($row = mysqli_fetch_array($result)) {
-                                        
+                                function get_city()
+                                {
+                                    //  $arr = array();
+                                    $result = mysqli_query($this->db_conn, "SELECT * FROM `city`");
+                                    while ($row = mysqli_fetch_array($result)) {
+                                    }
+                                    return $result;
                                 }
-                                return $result;
-                               }
                             }
                             $obj = new xyz();
                             $data = $obj->get_city();
-                              foreach($data as $row) {
-                         ?>
-                         <option value="<?php echo $row['id'];?>"><?php echo $row['name'];?></option>
-                         <?php
+                            foreach ($data as $row) {
+                            ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                            <?php
                             }
-                         ?>
-                         <?php
-                        // class Xyz
-                        // {
-                        //     protected $databaseConnection;
-                        //     public function __construct(DatabaseConnection $databaseConnection)
-                        //     {
-                        //         $this->databaseConnection = $databaseConnection->getConnectionObj();
-                        //     }
-                        
-                        //     public function fetchdata(){
-                        //         $arr = [];
-                        //         try{
-                        //             $sql = "SELECT * FROM city";
-                        //             $result= $this->databaseConnection->query($sql);
-                                    
-                        //             if($result->num_rows >0){
-                        //                 while($row = $result->fetch_assoc()){
-                        //                     // echo "<option value=".$row['name'].">".$row['name']."</option>";
-                        //                     $arr[] = $row;
-                        //                 }
-                        //             } 
-                        //             return $arr;
-                        
-                        //         }catch(Exception $e){
-                        //             echo $e->getMessage();
-                        //         }
-                        //         return $arr;
-                        //     }
-                        // } -->
-                        
-                        // $xyz = new Xyz(new DatabaseConnection());
-                        // echo "<pre>";
-                        // print_r($xyz->fetchdata());
-                    //  return($conn);
+                            ?>
+                            <?php
+                            // class Xyz
+                            // {
+                            //     protected $databaseConnection;
+                            //     public function __construct(DatabaseConnection $databaseConnection)
+                            //     {
+                            //         $this->databaseConnection = $databaseConnection->getConnectionObj();
+                            //     }
+
+                            //     public function fetchdata(){
+                            //         $arr = [];
+                            //         try{
+                            //             $sql = "SELECT * FROM city";
+                            //             $result= $this->databaseConnection->query($sql);
+
+                            //             if($result->num_rows >0){
+                            //                 while($row = $result->fetch_assoc()){
+                            //                     // echo "<option value=".$row['name'].">".$row['name']."</option>";
+                            //                     $arr[] = $row;
+                            //                 }
+                            //             } 
+                            //             return $arr;
+
+                            //         }catch(Exception $e){
+                            //             echo $e->getMessage();
+                            //         }
+                            //         return $arr;
+                            //     }
+                            // } -->
+
+                            // $xyz = new Xyz(new DatabaseConnection());
+                            // echo "<pre>";
+                            // print_r($xyz->fetchdata());
+                            //  return($conn);
 
 
-                    //     function fetchdata($conn    ){
-                    //     $sql = "SELECT * FROM city";
-                    //     $result= $conn->query($sql);
-                    //     if($result->num_rows >0){
-                    //         while($row = $result->fetch_assoc()){
-                    //             echo "<option value=".$row['name'].">".$row['name']."</option>";
+                            //     function fetchdata($conn    ){
+                            //     $sql = "SELECT * FROM city";
+                            //     $result= $conn->query($sql);
+                            //     if($result->num_rows >0){
+                            //         while($row = $result->fetch_assoc()){
+                            //             echo "<option value=".$row['name'].">".$row['name']."</option>";
 
-                    //         }
-                    //     }
-                    // }
-                       ?>
-                    </select></center>
+                            //         }
+                            //     }
+                            // }
+                            ?>
+                        </select></center>
             </form>
         </div>
         <br>
