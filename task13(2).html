@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- //<script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
 
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="widget.js"></script>
@@ -15,16 +16,19 @@
 
 <body>
 
-<div class="iiiiiii">
-        <input type="text" id="datepicker1" class="counting"> 
+    <div class="iiiiiii">
+        <input type="text" id="datepicker1" class="counting">
     </div>
-    <br/>
+    <br />
     <div class="qqqqqqq">
         <input type="text" id="datepicker2" class="abc">
     </div>
-    <br/>
-        <input type="text" id="datepicker3" class="abc">
+    <br />
+    <div class="scss">
 
+    <input type="text" id="datepicker3" class="abc">
+
+</div>
 
 
 </body>
@@ -33,13 +37,14 @@
 
 
     $(document).ready(function () {
-      
-      
-            $("#datepicker1").myCustomWidget();
-            $("#datepicker2").myCustomWidget();
-            // $("#datepicker3").myCustomWidget();
 
-                
+
+        $("#datepicker1").myCustomWidget();
+        $("#datepicker2").myCustomWidget();
+
+        $("#datepicker3").myCustomWidget();
+
+
     });
 // loadCustomWidget();
 

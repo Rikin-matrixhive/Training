@@ -2,59 +2,43 @@ $(function () {
    $.widget("custom.myCustomWidget", {
       options: {
          myvalue: 0
-
       },
       _create: function () {
-         // console.log (this.element.parent().attr('class'))
-         // console.log (typeof this.element.parent().attr('id') == 'undefined')
-         // console.log (this.element.attr('class'))
-         // console.log (this.element.attr('id'))
+
+      
+      
          var parentBlock = (this.element.parent().attr('class') || ''),
          parentBlock1 = (this.element.attr('class') || ''),
          parentBlock2 = (this.element.parent().attr('class') || ''),
          newData = parentBlock,parentBlock1,parentBlock2
-         
-         
-         
-         // console.log("parentBlock")
-         // console.log(this.element.closest('button'))
          this.element.parent().append('<span data-myCustomWidget-class="'+newData+'" style ="position:absolute" class="inc">' +
-            '<button type="button" class="increment btn btn-primary" value = "+">+</button>' +
+         '<button type="button" class="decrement btn btn-primary">-</button>' +
             '<span class="counting" id= "result">0</span>' +
-            '<button type="button" class="decrement btn btn-primary">-</button>' +
-            '</span>'   
-
-
+         '<button type="button" class="increment btn btn-primary" value = "+">+</button>' +
+            '</span>'
          )
          var value = 0;
-console.log(this.element.closest('span > button').val())
-         this.element.closest('button').click(function () {
-            if(this.element.closest('button').val() == '+'){
-               console.log('+++')
-            }
-               var value = ($(this).parent(".inc").find(".counting")[0].innerHTML);
 
-               value++; 
-               $(this).parent(".inc").find(".counting")[0].innerHTML = value;
+         
+             $(".increment").click(function () {
 
-            });
+                var value =$("span").attr("data-myCustomWidget-class",newData).val();
+                //console.log(value);
+                value++;
+                console.log(value);
+               $(".counting").val(value);                
+               //  $(this).parent(".inc").prevAll("input").first().val(value);
+               //  $(this).find(".counting")[0].prevAll("input").first().val(value);
+               //console.log($(this).find(".counting")[0].prevAll("input").first().val(value))
+             });
+             $(".decrement").click(function () {
+                var value =$("span").attr("data-myCustomWidget-class",newData);
+                console.log(value);
 
-            $(".decrement").click(function () {
-               var value = ($(this).parent(".inc").find(".counting")[0].innerHTML);
-
-               value--;
-               $(this).parent(".inc").find(".counting")[0].innerHTML = value;
-
-            });
-
-      }
- 
-
-
-
-
+                $(this).parent(".inc").find(".counting")[0].innerHTML = value;
+               //  $(this).parent(".inc").prevAll("input").first().val(value);
+               //  $(this).find(".counting")[0].prevAll("input").first().val(value);
+             });
+     }
    });
 });
-
-
-
