@@ -9,11 +9,8 @@
 
 
     $customerObj = new Connect();
-
-    $obj=new Ajaxcalls();
-    $obj->dataupdate($id);    
-
-
+    $another = new Ajaxcalls();
+    $another->dataupdate();
 
 
 
@@ -67,7 +64,7 @@
                         $customers = $customerObj->displayData();
                         foreach ($customers as $customer) {
                         ?>
-                            <tr >
+                            <tr>
                                 <td class="emp_id"><?php echo $customer['id'] ?></td>
                                 <td><?php echo $customer['fname'] ?></td>
                                 <td><?php echo $customer['lname'] ?></td>
@@ -83,6 +80,8 @@
                                     <button type="button" class="btn btn-primary editbtn" data-bs-toggle="modal" data-bs-target="#myModal">
                                         Update with modal
                                     </button>
+                                    <a href="view_empdetails.php?id= <?php echo $customer['id'] ?>" class="btn btn-primary">Delete</a>
+
             </div>
 
             <!-- The Modal -->
@@ -98,46 +97,46 @@
 
                         <!-- Modal body -->
                         <div class="modal-body ">
-                   
-                            <form action="code.php" method="POST">
                             <div class="emp_data">
-                            <input type="hidden" name="edit_id" id="edit_id">
+                                <form action="code.php" method="POST">
+
+                                    <input type="hidden" name="edit_id" id="edit_id">
                                     <label for="">Firstname</label>
-                                <input type="text" name="fname" id="edit_fname" placeholder="Enter your name" class="form-control fname">
-                                <br>
-                                <label for="">Lastname</label>
-                                <input type="text" name="lname" id= "edit_lname"placeholder="Enter your surname" class="form-control">
-                                <br>
-                                <label for="">Date of birth</label>
-                                <input type="date" name="dob" class="form-control" id= "edit_dob">
-                                <br>
-                                <label for="">Age</label>
-                                <input type="text" name="age" class="form-control" readonly id="edit_age">
-                                <br>
-                                <label for="">Email</label>
-                                <input type="text" name="email" placeholder="Enter your email id" class="form-control" id="edit_email">
-                                <br>
-                                <label for="">Mobile no</label>
-                                <input type="text" name="mobno" placeholder="Enter your mobile no" class="form-control" id="edit_mobno">
-                                <br>
-                                <label for="">Source</label>
-                                <input type="text" name="src1" placeholder="Enter source" class="form-control" id="edit_src1">
-                                <br>
-                                <label for="">Campaign</label>
-                                <input type="text" name="camp" placeholder="Enter Campaign" class="form-control" id="edit_camp">
-                                <br>
-                                <select name="country" id="edit_country" value="" class="form-select">
-                                    <option value="">----------Select Your Country----------</option>
-                                    <option value="India">India</option>
-                                    <option value="Australia">Australia</option>
-                                    <option value="America">America</option>
-                                    <option value="Canada">Canada</option>
-                                </select>
-                                <br>
-                                <input type="submit" value="Submit" class="btn btn-primary" name="update_btn">
+                                    <input type="text" name="fname" id="edit_fname" placeholder="Enter your name" class="form-control fname">
+                                    <br>
+                                    <label for="">Lastname</label>
+                                    <input type="text" name="lname" id="edit_lname" placeholder="Enter your surname" class="form-control">
+                                    <br>
+                                    <label for="">Date of birth</label>
+                                    <input type="date" name="dob" class="form-control" id="edit_dob">
+                                    <br>
+                                    <label for="">Age</label>
+                                    <input type="text" name="age" class="form-control" readonly id="edit_age">
+                                    <br>
+                                    <label for="">Email</label>
+                                    <input type="text" name="email" placeholder="Enter your email id" class="form-control" id="edit_email">
+                                    <br>
+                                    <label for="">Mobile no</label>
+                                    <input type="text" name="mobno" placeholder="Enter your mobile no" class="form-control" id="edit_mobno">
+                                    <br>
+                                    <label for="">Source</label>
+                                    <input type="text" name="src1" placeholder="Enter source" class="form-control" id="edit_src1">
+                                    <br>
+                                    <label for="">Campaign</label>
+                                    <input type="text" name="camp" placeholder="Enter Campaign" class="form-control" id="edit_camp">
+                                    <br>
+                                    <select name="country" id="edit_country" value="" class="form-select">
+                                        <option value="">----------Select Your Country----------</option>
+                                        <option value="India">India</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="America">America</option>
+                                        <option value="Canada">Canada</option>
+                                    </select>
+                                    <br>
+                                    <input type="submit" value="Submit" class="btn btn-primary" name="update">
 
 
-                            </form>
+                                </form>
                             </div>
                         </div>
 
@@ -168,48 +167,48 @@
 
         </div>
         </div>
-        
+
         <script>
-       $(document).ready(function () {
-           $(".editbtn").click(function (e) { 
-               e.preventDefault();
-               //alert("hello");
+            $(document).ready(function() {
+                $(".editbtn").click(function(e) {
+                    e.preventDefault();
+                    //alert("hello");
 
-               var empdata=$(this).closest('tr').find('.emp_id').text();
-               $.ajax({
-                   type: "POST",
-                   url: "code.php",
-                   data:{
-                       'editbtn':true,
-                       'emp_id':empdata,
-                   },
-                   
-                   success: function (response) {
-                       $.each(JSON.parse(response)  , function (key, value) { 
-                          // console.log(value['fname']);
-                          $("#edit_id").val(value['id']);
+                    var empdata = $(this).closest('tr').find('.emp_id').text();
+                    $.ajax({
+                        type: "POST",
+                        url: "code.php",
+                        data: {
+                            'editbtn': true,
+                            'emp_id': empdata,
+                        },
 
-                          $("#edit_fname").val(value['fname']);
-                          $("#edit_lname").val(value['lname']);
-                          $("#edit_dob").val(value['dob']);
-                          $("#edit_age").val(value['age']);
-                          $("#edit_email").val(value['email']);
-                          $("#edit_mobno").val(value['mobno']);
-                          $("#edit_src1").val(value['src1']);
-                          $("#edit_camp").val(value['camp']);
-                        //   $("#edit_fname").val(value['fname']);
-                        //   $("#edit_fname").val(value['fname']);
+                        success: function(response) {
+                            $.each(JSON.parse(response), function(key, value) {
+                                // console.log(value['fname']);
+                                $("#edit_id").val(value['id']);
 
-                            
-                       });
-                   // $(".emp_data").html(response);
-                    $("#empviewmodel").modal('show')
-                    //    console.log(response)
-                   }
-               });
-               //console.log(empdata);
-           });
-       });
+                                $("#edit_fname").val(value['fname']);
+                                $("#edit_lname").val(value['lname']);
+                                $("#edit_dob").val(value['dob']);
+                                $("#edit_age").val(value['age']);
+                                $("#edit_email").val(value['email']);
+                                $("#edit_mobno").val(value['mobno']);
+                                $("#edit_src1").val(value['src1']);
+                                $("#edit_camp").val(value['camp']);
+                                $("#edit_fname").val(value['fname']);
+                                $("#edit_fname").val(value['fname']);
+
+
+                            });
+                            //    $(".emp_data").html(response);
+                            $("#empviewmodel").modal('show')
+                            //    console.log(response)
+                        }
+                    });
+                    //console.log(empdata);
+                });
+            });
             // $(document).ready(function() {
 
             //     let check = $("#forms").validate(
@@ -349,41 +348,37 @@
 
             // });
 
-            function getAge() {
-                var dobValue = document.getElementById('dob').value;
-                if (dobValue === "") {
-                    document.getElementById('dobError').innerHTML = "Please Select DOB";
-                } else {
-                    //Create Today Date
-                    var today = new Date();
-                    //change string to date
-                    var birthDate = new Date(dobValue);
-                    var age = today.getFullYear() - birthDate.getFullYear();
-                    //calculate month difference from current date in time
-                    var m = today.getMonth() - birthDate.getMonth();
-                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                        age--;
-                    }
-                    if (age > 18) {
-                        document.getElementById('dobError').innerHTML = "";
-                        document.getElementById('ageError').innerHTML = "";
-                        //display the calculated age
-                        document.getElementById('age').value = age;
-                    } else {
-                        document.getElementById('dobError').innerHTML = "Please Select Valid DOB";
-                        document.getElementById('ageError').innerHTML = "Sorry!This From Requires 18+ User Only. Your age is " + age;
-                    }
-                }
-            }
+            // function getAge() {
+            //     var dobValue = document.getElementById('dob').value;
+            //     if (dobValue === "") {
+            //         document.getElementById('dobError').innerHTML = "Please Select DOB";
+            //     } else {
+            //         //Create Today Date
+            //         var today = new Date();
+            //         //change string to date
+            //         var birthDate = new Date(dobValue);
+            //         var age = today.getFullYear() - birthDate.getFullYear();
+            //         //calculate month difference from current date in time
+            //         var m = today.getMonth() - birthDate.getMonth();
+            //         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            //             age--;
+            //         }
+            //         if (age > 18) {
+            //             document.getElementById('dobError').innerHTML = "";
+            //             document.getElementById('ageError').innerHTML = "";
+            //             //display the calculated age
+            //             document.getElementById('age').value = age;
+            //         } else {
+            //             document.getElementById('dobError').innerHTML = "Please Select Valid DOB";
+            //             document.getElementById('ageError').innerHTML = "Sorry!This From Requires 18+ User Only. Your age is " + age;
+            //         }
+            //     }
+            // }
 
 
 
 
             // for updating using ajax
-
-            
-
-            
         </script>
     </body>
 

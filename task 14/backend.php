@@ -25,6 +25,7 @@
         public function insertdata()
         {
             if (isset($_POST['send'])) {
+
                 $fname = $_POST['fname'];
                 $lname = $_POST['lname'];
                 $dob = $_POST['dob'];
