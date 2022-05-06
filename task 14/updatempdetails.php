@@ -3,10 +3,7 @@
 include 'backend.php';
 
 $empobj = new Connect();
-$empobj->updateRecord($id);
-
-
-
+$empobj-> updateRecord($id);
 class Updates
 {
 
@@ -44,12 +41,15 @@ class Updates
             echo "No found records";
         }
     }
+
+
+    
 }
 
 
 
-
 $object = new Updates();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +111,7 @@ $object = new Updates();
                         <option value="Canada">Canada</option>
                     </select>
                     <br>
-                    <input type="submit" value="Submit" class="btn btn-primary"  name="update">
+                    <input type="submit" value="Submit" class="btn btn-primary" name="update">
                 <?php  } ?>
             </form>
         </div>

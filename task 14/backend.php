@@ -15,11 +15,11 @@
 
             $this->conn = mysqli_connect($this->servarname, $this->username, $this->password, $this->database);
 
-            if ($this->conn) {
-                echo "Connected";
-            } else {
-                echo "Sorry not connected";
-            }
+            // if ($this->conn) {
+            //     echo "Connected";
+            // } else {
+            //     echo "Sorry not connected";
+            // }
         }
 
         public function insertdata()
@@ -101,13 +101,12 @@
                 $country = $_POST['country'];
 
                 $mysql_query = mysqli_query($this->conn, "UPDATE persondetails set fname = '$fname',lname= '$lname',dob='$dob',age = '$age', email = '$email',mobno = '$mobno',src1= '$src1',camp = '$camp', country = '$country' WHERE id = '$id'");
-
-                print_r($mysql_query);
-            }
             if ($mysql_query == true) {
                 header("Location:view_empdetails.php");
             } else {
                 echo "Data can't be updated";
             }
+        }
+
         }
     }
