@@ -131,53 +131,53 @@ $empobj->insertdata();
                     messages: {
                         fname: {
 
-                            required: "Enter name",
-                            namecheck: "Name can only accept charectrers",
-                            minlength: "Enter atleast 3 cherecters"
+                            required: "<span class= 'text-danger'>Enter name</span>",
+                            namecheck: "<span class= 'text-danger'>Name can only accept charectrers</span>",
+                            minlength: "<span class= 'text-danger'>Enter atleast 3 cherecters</span>"
 
                         },
                         lname: {
 
-                            required: "Enter surname",
-                            namecheck: "Name can only accept charectrers",
-                            minlength: "Enter atleast 3 cherecters"
+                            required: "<span class= 'text-danger'>Enter surname</span>",
+                            namecheck: "<span class= 'text-danger'>Name can only accept charectrers</span>",
+                            minlength: "<span class= 'text-danger'>Enter atleast 3 cherecters</span>"
 
                         },
                         dob: {
 
-                            required: "Enter Your date of birth",
+                            required: "<span class= 'text-danger'>Enter Your date of birth</span>",
 
                         },
 
                         email: {
 
-                            required: "Enter your email id",
-                            emailcheck:"Invalid Email"
+                            required: "<span class= 'text-danger'>Enter your email id</span>",
+                            emailcheck:"<span class= 'text-danger'>Invalid Email</span>"
 
                         },
 
 
                         mobno: {
 
-                            required: "Enter Mobile no",
-                            numcheck: "Enter only numbers",
+                            required: "<span class= 'text-danger'>Enter Mobile no</span>",
+                            numcheck: "<span class= 'text-danger'>Enter only numbers</span>",
 
-                            minlength: "The mobile number should be 10 digits",
-                            maxlength: "Dont Enter more than 10 numbers",
+                            minlength: "<span class= 'text-danger'>The mobile number should be 10 digits</span>",
+                            maxlength: "<span class= 'text-danger'>Dont Enter more than 10 numbers</span>",
 
                         },
                         src1: {
 
-                            required: "Enter your sourcedetails",
-                            sourcecheck: "Enter only numbers charecters and whitespace only",
+                            required: "<span class= 'text-danger'>Enter your sourcedetails</span>",
+                            sourcecheck: "<span class= 'text-danger'>Enter only numbers charecters and whitespace only</span>",
                         },
                         camp: {
-                            required: "Enter Your Campign details",
-                            campcheck: "Enter only numbers charecters and whitespace only",
+                            required: "<span class= 'text-danger'>Enter Your Campign details</span>",
+                            campcheck: "<span class= 'text-danger'>Enter only numbers charecters and whitespace only</span>",
 
                         },
                         country: {
-                            required: "Select country first ",
+                            required: "<span class= 'text-danger'>Select country first</span>",
                            
 
                         },
@@ -249,11 +249,8 @@ $empobj->insertdata();
             }
         }
 
-        function changes() {
-            var int = document.getElementById("salary").value;
-            var float = parseFloat(int).toFixed(2);
-            document.getElementById("sal").innerHTML = "Your salary is : " + float;
-        }
+       
+       
     </script>
 
 </body>

@@ -1,54 +1,14 @@
 <?php
-
 include 'backend.php';
 
-$empobj = new Connect();
-$empobj-> updateRecord($id);
-class Updates
-{
-
-    private $servarname = "localhost";
-    private $username = "root";
-
-    private $password = "12345";
-
-    private $database = "country_city_statedetails";
-    public function __construct()
-    {
-
-        $this->conn = mysqli_connect($this->servarname, $this->username, $this->password, $this->database);
-
-        // if ($this->conn) {
-        //     echo "Connected";
-        // } else {
-        //     echo "Sorry not connected";
-        // }
-    }
-
-    public function displayData($id)
-    {
-
-        $id = $_GET['id'];
-        $query = "SELECT * FROM persondetails WHERE id = $id";
-        $result = $this->conn->query($query);
-        if ($result->num_rows > 0) {
-            $data = array();
-            while ($row = $result->fetch_assoc()) {
-                $data[0] = $row;
-            }
-            return $data;
-        } else {
-            echo "No found records";
-        }
-    }
+$data = new Connect();
+$data->updateRecord($id);
 
 
-    
-}
+$data->dataupdated($id);    
 
 
 
-$object = new Updates();
 
 ?>
 <!DOCTYPE html>
@@ -73,9 +33,10 @@ $object = new Updates();
         <div class="card-body">
             <form action="" method="POST" id="forms">
                 <?php
-                $customers = $object->displayData($id);;
+                $customers = $data->displyaRecordById($id);
                 foreach ($customers as $customer) {
                 ?>
+
                     <label for="">Firstname</label>
                     <input type="text" name="fname" placeholder="Enter name" class="form-control" value="<?php echo $customer['fname']; ?>">
                     <br>
@@ -83,7 +44,7 @@ $object = new Updates();
                     <input type="text" name="lname" placeholder="Enter Surname" class="form-control" value="<?php echo $customer['lname']; ?>">
                     <br>
                     <label for="">Date of birth</label>
-                    <input type="date" id='dob' name='dob' onchange="getAge();" class="form-control" value="<?php echo $customer['dob']; ?>">
+                    <input type="date" id='dob' name='dob'  class="form-control" value="<?php echo $customer['dob']; ?>" onchange="getAge()"> 
                     <span class="error" id="dobError">*</span>
                     <br>
                     <label for="">Age</label>
@@ -104,7 +65,7 @@ $object = new Updates();
                     <br>
                     <label for="">Select Country</label>
                     <select name="country" id="" value="" class="form-select">
-                        <option value="">----------Select Your Country----------</option>
+                        <option value="<?php echo $customer['country']; ?>"><?php echo $customer['country']; ?></option>
                         <option value="India">India</option>
                         <option value="Australia">Australia</option>
                         <option value="America">America</option>
@@ -112,7 +73,7 @@ $object = new Updates();
                     </select>
                     <br>
                     <input type="submit" value="Submit" class="btn btn-primary" name="update">
-                <?php  } ?>
+                <?php } ?>
             </form>
         </div>
         <div class="card-footer"></div>
@@ -178,53 +139,53 @@ $object = new Updates();
                     messages: {
                         fname: {
 
-                            required: "Enter name",
-                            namecheck: "Name can only accept charectrers",
-                            minlength: "Enter atleast 3 cherecters"
+                            required: "<span class= 'text-danger'>Enter name</span>",
+                            namecheck: "<span class= 'text-danger'>Name can only accept charectrers</span>",
+                            minlength: "<span class= 'text-danger'>Enter atleast 3 cherecters</span>"
 
                         },
                         lname: {
 
-                            required: "Enter surname",
-                            namecheck: "Name can only accept charectrers",
-                            minlength: "Enter atleast 3 cherecters"
+                            required: "<span class= 'text-danger'>Enter surname</span>",
+                            namecheck: "<span class= 'text-danger'>Name can only accept charectrers</span>",
+                            minlength: "<span class= 'text-danger'>Enter atleast 3 cherecters</span>"
 
                         },
                         dob: {
 
-                            required: "Enter Your date of birth",
+                            required: "<span class= 'text-danger'>Enter Your date of birth</span>",
 
                         },
 
                         email: {
 
-                            required: "Enter your email id",
-                            emailcheck: "Invalid Email"
+                            required: "<span class= 'text-danger'>Enter your email id</span>",
+                            emailcheck: "<span class= 'text-danger'>Invalid Email</span>"
 
                         },
 
 
                         mobno: {
 
-                            required: "Enter Mobile no",
-                            numcheck: "Enter only numbers",
+                            required: "<span class= 'text-danger'>Enter Mobile no</span>",
+                            numcheck: "<span class= 'text-danger'>Enter only numbers</span>",
 
-                            minlength: "The mobile number should be 10 digits",
-                            maxlength: "Dont Enter more than 10 numbers",
+                            minlength: "<span class= 'text-danger'>The mobile number should be 10 digits</span>",
+                            maxlength: "<span class= 'text-danger'>Dont Enter more than 10 numbers</span>",
 
                         },
                         src1: {
 
-                            required: "Enter your sourcedetails",
-                            sourcecheck: "Enter only numbers charecters and whitespace only",
+                            required: "<span class= 'text-danger'>Enter your sourcedetails</span>",
+                            sourcecheck: "<span class= 'text-danger'>Enter only numbers charecters and whitespace only</span>",
                         },
                         camp: {
-                            required: "Enter Your Campign details",
-                            campcheck: "Enter only numbers charecters and whitespace only",
+                            required: "<span class= 'text-danger'>Enter Your Campign details</span>",
+                            campcheck: "<span class= 'text-danger'>Enter only numbers charecters and whitespace only</span>",
 
                         },
                         country: {
-                            required: "Select country first ",
+                            required: "<span class= 'text-danger'>Select country first</span>",
 
 
                         },
@@ -270,6 +231,7 @@ $object = new Updates();
         });
 
         function getAge() {
+
             var dobValue = document.getElementById('dob').value;
             if (dobValue === "") {
                 document.getElementById('dobError').innerHTML = "Please Select DOB";
@@ -294,12 +256,6 @@ $object = new Updates();
                     document.getElementById('ageError').innerHTML = "Sorry!This From Requires 18+ User Only. Your age is " + age;
                 }
             }
-        }
-
-        function changes() {
-            var int = document.getElementById("salary").value;
-            var float = parseFloat(int).toFixed(2);
-            document.getElementById("sal").innerHTML = "Your salary is : " + float;
         }
     </script>
 
