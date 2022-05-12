@@ -152,18 +152,46 @@
             }
         }
         public function dataupdated($id)
-        {
+        { 
+            
+            
+            $emailErr = "";
+            $email = "";
 
+            
             if (isset($_POST['update'])) {
 
-                $id = $_POST['edit_id'];
+                if (empty($_POST["email"])) {
+                    $emailErr = "Email is required";
+                    //echo $emailErr;
 
+                    return $emailErr;
+                  } 
+                  
+                  else {
+                    $email =$_POST["email"];
+                  
+                  }
+              
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                  $emailErr = "Invalid email format";
+                  //echo $emailErr;
+
+                  return $emailErr;
+
+                }
+                else {
+                  $email =$_POST["email"];
+                }
+                
+          
+                $id = $_POST['edit_id'];
                 $fname = $_POST['fname'];
                 $lname = $_POST['lname'];
                 $dob = $_POST['dob'];
                 $age = $_POST['age'];
                 $email = $_POST['email'];
-                echo $email;
+
                 $mobno = $_POST['mobno'];
                 $src1 = $_POST['src1'];
                 $camp = $_POST['camp'];
@@ -177,9 +205,17 @@
                     echo "Data can't be updated";
                 }
             }
+
+
+
+    
         }
+        
+
+        
 
      
     }
     $customerObj = new Connect();
     $customerObj->fetchdata($e_id);
+    

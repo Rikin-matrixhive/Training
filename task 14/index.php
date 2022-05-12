@@ -6,6 +6,7 @@ include 'backend.php';
 $empobj= new Connect();
 $empobj->insertdata();
 
+
 ?>
 
 
@@ -29,7 +30,7 @@ $empobj->insertdata();
 
         <div class="card-header bg-primary text-center text-white">CRUD IN PHP</div>
         <div class="card-body">
-            <form action="" method="POST" id="forms">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" id="forms">
                 <label for="">Firstname</label>
                 <input type="text" name="fname" placeholder="Enter name" class="form-control">
                 <br>
@@ -46,6 +47,8 @@ $empobj->insertdata();
                 <br>
                 <label for="">Email</label>
                 <input type="text" name="email" placeholder="Enter Email id " class="form-control">
+                <span class="error">* <?php echo $emailErr; ?></span>
+
                 <br>
                 <label for="">Phone no</label>
                 <input type="text" name="mobno" placeholder="Enter your mobileno" class="form-control">
