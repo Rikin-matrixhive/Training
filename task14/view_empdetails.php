@@ -34,6 +34,11 @@ var_dump($result) ;
     .error {
         color: red;
     }
+
+    .emailserror{
+        color: red;
+
+    }
 </style>
 
 <body>
@@ -120,8 +125,8 @@ var_dump($result) ;
 
                                 <br>
                                 <label for="">Email</label>
-                                <input type="text" name="email" placeholder="Enter your email id" class="form-control" id="edit_email">
-                                <span class="error">* <?php echo $result; ?></span>
+                                <input type="text" name="email" placeholder="Enter your email id" class="form-control emails" id="edit_email">
+                                <span class="emailserror">* <?php echo $result; ?></span>
                                 <br>
                                 <label for="">Mobile no</label>
                                 <input type="text" name="mobno" placeholder="Enter your mobile no" class="form-control" id="edit_mobno">
@@ -403,31 +408,29 @@ var_dump($result) ;
         });
 
 
-        $(document).ready(function () {
-            $("#forms").submit(function (event) { 
-                event.preventDefault();
-                submitForm();
-
-
-
+    $(document).ready(function () {
+        $(".emails").focusout(function () { 
+            
+            var emaildata= $(this).closest("form").find(".emails").val();
+            $.ajax({
+                type: "POST",
+                url: "backend.php",
+                data: {
+                    'emails':true,
+                    'emails':emaildata
+                },
+                success: function (response) {
+                        console.log(response);
+                    $(".emailserror").text(response);
+                    
+                }
             });
-            function submitForm(){
-
-$.ajax({
-    type: "POST",
-    url: "backend.php",
-    data: $("#forms").serialize(),
-    success: function (response) {
-$("#emp_data").html(response)
-$("#myModal").modal('hide');
-console.log(response);
-    }
-});
-
-
-// e.preventDefault();
-}
         });
+
+    });
+
+
+
     </script>
 </body>
 
