@@ -188,31 +188,24 @@
             $e_id = $_POST['emails'];
 
             if (isset($_POST['emails'])) {
-                    if(empty($e_id)== true){
+                    if(empty($e_id)){
                  $errMsg = "Enter Email id";
-                 echo $errMsg;
+                 //echo $errMsg;
+                 exit;
                  return false;
 
                 }
-                else{
-                    $e_id = $_POST['emails'];
-                }
+            
 
-                if (!filter_var($e_id, FILTER_VALIDATE_EMAIL)==true) {
+                if (!filter_var($e_id, FILTER_VALIDATE_EMAIL)) {
                     $errMsg = "Invalid email format";
                     echo $errMsg;
+                    //exit;
+
                     return false;
                   }
 
 
-                  if($errMsg == true){
-                  }
-
-                  else{
-                    return true;
-
-                  }
-            
                 // echo $return = $e_id; 
                 //var_dump($query);
                 

@@ -409,7 +409,7 @@ var_dump($result) ;
 
 
     $(document).ready(function () {
-        $(".emails").focusout(function () { 
+        $(".emails").click(function () { 
             
             var emaildata= $(this).closest("form").find(".emails").val();
             $.ajax({
