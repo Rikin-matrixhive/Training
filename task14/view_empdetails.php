@@ -8,12 +8,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $customerObj->deleteRecord($deleteId);
 }
 
-$customerObj = new Connect();
-$result=$customerObj->dataupdated($id);
 
-var_dump($result) ;
+
 ?>
-
+    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +33,7 @@ var_dump($result) ;
         color: red;
     }
 
-    .emailserror{
+    .emailserror {
         color: red;
 
     }
@@ -92,7 +90,7 @@ var_dump($result) ;
         </div>
 
         <!-- The Modal -->
-        <div class="modal" id="myModal" >
+        <div class="modal" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -105,7 +103,9 @@ var_dump($result) ;
                     <!-- Modal body -->
                     <div class="modal-body ">
                         <div class="emp_data">
-                            <form action="#" method="POST" id="forms" >
+
+                       <form action="#" method="POST" id="forms">
+                           
 
                                 <input type="hidden" name="edit_id" id="edit_id">
                                 <label for="">Firstname</label>
@@ -181,7 +181,6 @@ var_dump($result) ;
     </div>
 
     <script>
-
         $(document).ready(function() {
 
             let check = $("#forms").validate(
@@ -401,36 +400,43 @@ var_dump($result) ;
                 });
                 //console.log(empdata);
             });
-//             $('#empviewmodel').modal({
-//         backdrop: 'static',
-//         keyboard: false
-// });
+            //             $('#empviewmodel').modal({
+            //         backdrop: 'static',
+            //         keyboard: false
+            // });
         });
 
 
-    $(document).ready(function () {
-        $(".emails").click(function () { 
-            
-            var emaildata= $(this).closest("form").find(".emails").val();
-            $.ajax({
-                type: "POST",
-                url: "backend.php",
-                data: {
-                    'emails':true,
-                    'emails':emaildata
-                },
-                success: function (response) {
-                        console.log(response);
-                    $(".emailserror").text(response);
+        $(document).ready(function() {
+
+            $("#forms").submit(function() {
+                //console.log(button);
+                $.ajax({
+                    type: "POST",
+                    url: "backend.php",
+                    data: $("#forms").serialize(),
                     
-                }
+                    success: function(response) {
+                        console.log(response);
+
+                        $(".emailserror").text(response);
+
+                        if(response){
+                            alert("success");
+                        }
+                        else{
+                            alert("fail");
+
+                        }
+
+
+                  
+                    }
+                });
             });
+
         });
-
-    });
-
-
-
+     
     </script>
 </body>
 

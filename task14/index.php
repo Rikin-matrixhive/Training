@@ -1,12 +1,9 @@
 <?php
-
-
 include 'backend.php';
 
-$empobj= new Connect();
-$empobj->insertdata();
-
-
+if (isset($_POST['send'])) {
+    $customerObj->insertdata();
+}
 ?>
 
 
@@ -30,7 +27,7 @@ $empobj->insertdata();
 
         <div class="card-header bg-primary text-center text-white">CRUD IN PHP</div>
         <div class="card-body">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" id="forms">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="forms">
                 <label for="">Firstname</label>
                 <input type="text" name="fname" placeholder="Enter name" class="form-control">
                 <br>
@@ -105,7 +102,7 @@ $empobj->insertdata();
                         },
                         email: {
                             required: true,
-                            emailcheck:true
+                            emailcheck: true
                         },
                         mobno: {
                             required: true,
@@ -116,12 +113,12 @@ $empobj->insertdata();
 
                         src1: {
                             required: true,
-                            sourcecheck:true,
+                            sourcecheck: true,
 
                         },
                         camp: {
                             required: true,
-                            campcheck:true,
+                            campcheck: true,
 
                         },
                         country: {
@@ -155,7 +152,7 @@ $empobj->insertdata();
                         email: {
 
                             required: "<span class= 'text-danger'>Enter your email id</span>",
-                            emailcheck:"<span class= 'text-danger'>Invalid Email</span>"
+                            emailcheck: "<span class= 'text-danger'>Invalid Email</span>"
 
                         },
 
@@ -181,14 +178,14 @@ $empobj->insertdata();
                         },
                         country: {
                             required: "<span class= 'text-danger'>Select country first</span>",
-                           
+
 
                         },
                     },
 
 
                 });
-                $.validator.addMethod("numcheck",
+            $.validator.addMethod("numcheck",
                 function(value, element) {
                     return /^[0-9]+$/.test(value);
 
@@ -212,12 +209,12 @@ $empobj->insertdata();
                     return /^[0-9]+$/.test(value);
                 });
 
-                $.validator.addMethod("sourcecheck",
+            $.validator.addMethod("sourcecheck",
                 function(value, element) {
                     return /^[0-9\sa-zA-Z_]+$/.test(value);
                 });
-                
-                $.validator.addMethod("campcheck",
+
+            $.validator.addMethod("campcheck",
                 function(value, element) {
                     return /^[0-9\sa-zA-Z_]+$/.test(value);
                 });
@@ -251,9 +248,6 @@ $empobj->insertdata();
                 }
             }
         }
-
-       
-       
     </script>
 
 </body>

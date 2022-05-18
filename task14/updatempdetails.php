@@ -1,11 +1,11 @@
 <?php
 include 'backend.php';
 
-$data = new Connect();
-$data->updateRecord($id);
-
-
-$data->dataupdated($id);    
+if(isset($_POST['update'])){
+    
+    $result=$customerObj->updateRecord($id);
+    
+}
 
 
 
@@ -33,7 +33,7 @@ $data->dataupdated($id);
         <div class="card-body">
             <form action="" method="POST" id="forms">
                 <?php
-                $customers = $data->displyaRecordById($id);
+                $customers = $customerObj->displyaRecordById($id);
                 foreach ($customers as $customer) {
                 ?>
 
