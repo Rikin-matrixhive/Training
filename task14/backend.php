@@ -160,28 +160,34 @@ class Connect
     }
     public function dataupdated()
     {
+
         $errMsg = "";
-        if (isset($_POST['update'])) {
+        if (isset($_POST['edit_id'])) {
 
 
             $email = $_POST['email'];
             if (empty($email)) {
                 $errMsg = "Enter your email id";
-                echo json_encode($errMsg);
+                // print_r($errMsg);
+                echo $errMsg;
+                
                 return false;
 
+
+                
             }
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errMsg = "Invalid email format";
-                echo json_encode($errMsg);
+
+            
+                echo $errMsg;
                 return false;
+ 
 
 
             } else {
                 $email = $_POST['email'];
-
-
             }
             $id = $_POST['edit_id'];
             $fname = $_POST['fname'];
@@ -197,12 +203,20 @@ class Connect
             $mysql_query = mysqli_query($this->conn, "UPDATE persondetails set fname = '$fname',lname= '$lname',dob='$dob',age = '$age', email = '$email',mobno = '$mobno',src1= '$src1',camp = '$camp', country = '$country' WHERE id = '$id'");
 
             if ($mysql_query == true) {
-                header("Location:view_empdetails.php");
+                echo "Data updated";
             } else {
                 echo "Data can't be updated";
             }
             // echo json_encode($mysql_query);
         }
+        if($errMsg){
+            echo "fail";
+        }
+        else{
+            echo "success";
+
+        }
+       
     }
 }
 
@@ -216,6 +230,6 @@ if (isset($_POST['editbtn'])) {
     // exit;
     $customerObj->fetchdata();
 }
-if (isset($_POST['update'])) {
+if (isset($_POST['edit_id'])) {
     $result = $customerObj->dataupdated();
 }

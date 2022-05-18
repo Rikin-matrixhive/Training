@@ -11,7 +11,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 
 ?>
-    
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,8 +104,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     <div class="modal-body ">
                         <div class="emp_data">
 
-                       <form action="#" method="POST" id="forms">
-                           
+                            <form action="#" method="POST" id="forms">
+
 
                                 <input type="hidden" name="edit_id" id="edit_id">
                                 <label for="">Firstname</label>
@@ -126,7 +126,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 <br>
                                 <label for="">Email</label>
                                 <input type="text" name="email" placeholder="Enter your email id" class="form-control emails" id="edit_email">
-                                <span class="emailserror">* <?php echo $result; ?></span>
+                                <span class="emailserror"><?php echo $errMsg;?></span>
                                 <br>
                                 <label for="">Mobile no</label>
                                 <input type="text" name="mobno" placeholder="Enter your mobile no" class="form-control" id="edit_mobno">
@@ -145,7 +145,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                     <option value="Canada">Canada</option>
                                 </select>
                                 <br>
-                                <button type="submit" value="Update" class="btn btn-primary" name="update" id="form_update">Update</button>
+                                <button type="button" value="Update" class="btn btn-primary" name="update" id="form_update">Update</button>
 
 
                             </form>
@@ -406,37 +406,63 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             // });
         });
 
+        // $(document).ready(function() {
+        //     $('button[name="update"]').click(function() {
+        //         var emaildata = $('input[name="email"]').val();
 
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "backend.php",
+        //             data: {
+        //                 'update': true,
+        //                 'email': emaildata,
+        //             },
+
+        //             success: function(response) {
+        //                 console.log(response);
+
+        //                 $(".emailserror").text(response);
+
+        //                 if (response) {
+        //                     alert("success");
+        //                 } else {
+        //                     alert("fail");
+
+        //                 }
+        //             }
+        //         });
+
+        //     });
+        // });
         $(document).ready(function() {
 
-            $("#forms").submit(function() {
+            $("#forms").click(function() {
+
+                //var email = $('button[name="update"]').val();
                 //console.log(button);
                 $.ajax({
                     type: "POST",
                     url: "backend.php",
                     data: $("#forms").serialize(),
-                    
+
+                    // data:{
+                    //     'update':true,
+                    // }
+
                     success: function(response) {
                         console.log(response);
 
                         $(".emailserror").text(response);
 
-                        if(response){
-                            alert("success");
-                        }
-                        else{
-                            alert("fail");
-
-                        }
+                        
 
 
-                  
+
                     }
                 });
             });
 
         });
-     
     </script>
 </body>
 
