@@ -12,20 +12,34 @@ class Makedatatable
 
     {
 
+    
 
-        $main_query = "SELECT * FROM persondetails";
+     $main_query = "SELECT * FROM persondetails";
         $main_res = mysqli_query($this->conn, $main_query);
-        
-        if (isset($_POST['datas'])) {
-            $datas = $_POST['datas'];
 
-            if ($datas) {
-                $limit_query = $main_query . " " . "LIMIT" . " " . $datas;
-                $limit_res = mysqli_query($this->conn, $limit_query);
+        // if (isset($_POST['datas'])) {
+            $limitdata = $_POST['limitdata'];
+
+            
+            // var_dump($_POST['datas']);
+         
+            if($_POST['searchdata']){
+                $searchdata= $_POST['searchdata'];
+
+                $main_query .= " ". "WHERE" ." ". "fname". " ". "LIKE"." ". "'%".$searchdata."%'" ."OR". " ".  "lname". " ". "LIKE"." ". "'%".$searchdata."%'" ."OR". " ".  "dob". " ". "LIKE"." ". "'%".$searchdata."%'" ."OR". " ".  "age". " ". "LIKE"." ". "'%".$searchdata."%'"."OR". " ".  "email". " ". "LIKE"." ". "'%".$searchdata."%'"."OR". " ".  "mobno". " ". "LIKE"." ". "'%".$searchdata."%' " ."OR". " ".  "mobno". " ". "LIKE"." ". "'%".$searchdata."%'" ."OR". " ".  "src1". " ". "LIKE"." ". "'%".$searchdata."%'"."OR". " ".  "camp". " ". "LIKE"." ". "'%".$searchdata."%'"."OR". " ".  "country". " ". "LIKE"." ". "'%".$searchdata."%'";
+                // echo $main_query;
+            }
+            if ($_POST['limitdata']) {
+                $main_query .= " " . "LIMIT" . " " . $limitdata;
+                // echo $main_query;
+
+            }
+                $limit_res = mysqli_query($this->conn,$main_query);
                 if ($limit_res->num_rows > 0) {
                     echo '<table class = "table table-bordered">
                     <thead class = "bg-primary text-white text-center">
             <tr>
+            <th>#</th>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Birth Date</th>
@@ -43,6 +57,8 @@ class Makedatatable
 
 
                         echo "<tr>
+                        <td><input type = 'checkbox' onchange ='datatable()' id= ></td>
+
                         <td>" . $row['fname'] . "</td>
                         <td>" . $row['lname'] . "</td>
                         <td>" . $row['dob'] . "</td>
@@ -57,105 +73,7 @@ class Makedatatable
                     }
                 }
             }
-
-        }
         
-        
-       
-        else {
-            $db_query = mysqli_query($this->conn, $main_query);
-
-            if ($db_query->num_rows > 0) {
-                echo '<table class = "table table-bordered">
-                <thead class = "bg-primary text-white text-center">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Birth Date</th>
-            <th>Age</th>
-            <th>Email id</th>
-            <th>Mobile No</th>
-            <th>Source</th>
-            <th>Campign</th>
-            <th>City</th>
-            <th>Action</th>
-        </tr>
-        <thead>
-        ';
-
-                while ($row = $db_query->fetch_assoc()) {
-
-
-                    echo "<tr>
-                    <td>" . $row['fname'] . "</td>
-                    <td>" . $row['lname'] . "</td>
-                    <td>" . $row['dob'] . "</td>
-                    <td>" . $row['age'] . "</td>
-                    <td>" . $row['email'] . "</td>
-                    <td>" . $row['mobno'] . "</td>
-                    <td>" . $row['src1'] . "</td>
-                    <td>" . $row['camp'] . "</td>
-                   <td>" . $row['country'] . "</td>
-                    <td><a href='crud-form.php?delete=" . $row['id'] . "'>Delete</a></td>
-             </tr>";
-                }
-            }
-        }
-
-        if($_POST['searchdata']){
-
-        $searchdata = $_POST['searchdata'];
-
-        // $query = "SELECT * FROM employee
-        // WHERE id  LIKE '%".$searchdata."%'
-        // OR emp_name LIKE '%".$searchdata."%' 
-        // OR email LIKE '%".$searchdata."%' 
-        // OR phone LIKE '%".$searchdata."%' 
-        }
-        $search_query= $main_query." " ."WHERE" ." ".  "fname"." ".  "LIKE" ." ". "%". $searchdata."%" ." "."OR".
-        " ". "lname" ." ". "LIKE" . " " . "%". $searchdata. "%" ." "."OR"
-        ." ". "dob" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        "OR"
-        ." "."age" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        "OR".
-        " ". "email" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        "OR".
-        " ". "mobno" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        "OR".
-        " ". "src1" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        "OR"
-        ." ". "camp" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
-        
-        "OR" 
-        ." "."country" ." ". "LIKE" . " " . "%". $searchdata. "%";
-
-       // echo $search_query;
-
-        $search_res = mysqli_query($this->conn,$search_query);
-
-        if($search_res->num_rows >0){
-            while ($row = $search_res->fetch_assoc()) {
-
-
-                echo "<tr>
-                <td>" . $row['fname'] . "</td>
-                <td>" . $row['lname'] . "</td>
-                <td>" . $row['dob'] . "</td>
-                <td>" . $row['age'] . "</td>
-                <td>" . $row['email'] . "</td>
-                <td>" . $row['mobno'] . "</td>
-                <td>" . $row['src1'] . "</td>
-                <td>" . $row['camp'] . "</td>
-               <td>" . $row['country'] . "</td>
-                <td><a href='crud-form.php?delete=" . $row['id'] . "'>Delete</a></td>
-         </tr>";
-            }
-        }
-
-
-
-
-    }
 
 
 
@@ -182,4 +100,7 @@ class Makedatatable
 
 
 $rowobj = new Makedatatable();
-$rowobj->tableData();
+if(count($_POST) > 0){
+    $rowobj->tableData();
+}
+

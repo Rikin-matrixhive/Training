@@ -58,14 +58,24 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </select>
 
             <div class="livesearch">
-                <input type="text" placeholder="Search" onkeydown="datatable()" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
+                <input type="text" placeholder="Search" onchange="datatable()" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
 ">
             </div>
+            <br>
+            <!-- <div class="deletebutton">
+            <button type="button" class="btn btn-success btn-sm delete"  data-id="<?=$row['id'];?>">Delete</button>            </div> -->
 
 
             <script>
                 function datatable() {
-                    var datas = $("#limit").val();
+                    var limitdata = $("#limit").val();
+                    var searchdata = $("#searchs").val();
+
+
+                    console.log(limitdata)
+                    console.log(searchdata)                    
+
+
 
 
 
@@ -73,10 +83,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         type: "POST",
                         url: "datatable.php",
                         data: {
-                            datas: datas,
+                            limitdata: limitdata,
+                            searchdata:searchdata
+
                         },
 
                         success: function(datatables) {
+
+
                             $("table").replaceWith(datatables);
 
 
@@ -86,59 +100,16 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     });
 
 
-                    var searchdata = $("#searchs").val();
 
 
 
-                    $.ajax({
-                        type: "GET",
-                        url: "datatable.php",
-                        data: {
-                            searchdata: searchdata,
-                        },
-
-                        success: function(searchdata) { 
-                            console.log(searchdata);
-                            $("#data").replaceWith(searchdata);
-
-                           
-                            
-
-
-                        }
-
-
-                    });
+                  
  }
 
-                // $(document).ready(function() {
+                $(document).ready(function() {
+                   datatable();
 
-                //     $("#limit").on('click', function() {
-
-                //         var datas = $(this).val();
-                //         console.log(datas);
-
-                //         $.ajax({
-                //             type: "POST",
-                //             url: "datatable.php",
-                //             data: {
-                //                 datas: true,
-                //             },
-                //             cache: false,
-                //             success: function(datatables) {
-                //                 console.log(datatables)
-
-
-                //             }
-
-                //             // success: function (datas) {
-
-
-                //             // }
-                //         });
-
-                //     });
-                // });
+                });
             </script>
         </div>
 
