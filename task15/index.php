@@ -47,7 +47,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <input type="text" autocomplete="off" placeholder="Search country..." class="form-control">
         <div class="result"></div> -->
 
-            <select id="limit" class="form-select limits" style="width: 10%;" name="limits">
+            <select id="limit" class="form-select limits" style="width: 10%;" name="limits" onchange="datatable()">
                 <option value="">All</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -58,39 +58,58 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </select>
 
             <div class="livesearch">
-                <input type="text" placeholder="Search" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
+                <input type="text" placeholder="Search" onkeydown="datatable()" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
 ">
             </div>
 
 
             <script>
-                $(document).ready(function() {
-
-                    $("#limit").on('change', function() {
-                        var datas = this.value;
-                        console.log(datas);
+                function datatable() {
+                    var datas = $("#limit").val();
 
 
 
-                        $.ajax({
-                            type: "POST",
-                            url: "datatable.php",
-                            data: {
-                                datas: datas,
-                            },
+                    $.ajax({
+                        type: "POST",
+                        url: "datatable.php",
+                        data: {
+                            datas: datas,
+                        },
 
-                            success: function(datatables) {
-                                $("#data").append(datatables);
-
-
-                            }
+                        success: function(datatables) {
+                            $("table").replaceWith(datatables);
 
 
-                        });
+                        }
+
 
                     });
 
-                });
+
+                    var searchdata = $("#searchs").val();
+
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "datatable.php",
+                        data: {
+                            searchdata: searchdata,
+                        },
+
+                        success: function(searchdata) { 
+                            console.log(searchdata);
+                            $("#data").replaceWith(searchdata);
+
+                           
+                            
+
+
+                        }
+
+
+                    });
+ }
 
                 // $(document).ready(function() {
 

@@ -11,13 +11,18 @@ class Makedatatable
     public function tableData()
 
     {
+
+
+        $main_query = "SELECT * FROM persondetails";
+        $main_res = mysqli_query($this->conn, $main_query);
+        
         if (isset($_POST['datas'])) {
             $datas = $_POST['datas'];
 
             if ($datas) {
-                $db_query = mysqli_query($this->conn, "SELECT * FROM persondetails LIMIT $datas");
-
-                if ($db_query->num_rows > 0) {
+                $limit_query = $main_query . " " . "LIMIT" . " " . $datas;
+                $limit_res = mysqli_query($this->conn, $limit_query);
+                if ($limit_res->num_rows > 0) {
                     echo '<table class = "table table-bordered">
                     <thead class = "bg-primary text-white text-center">
             <tr>
@@ -34,7 +39,7 @@ class Makedatatable
             </tr>
             <thead>
             ';
-                    while ($row = $db_query->fetch_assoc()) {
+                    while ($row = $limit_res->fetch_assoc()) {
 
 
                         echo "<tr>
@@ -52,8 +57,13 @@ class Makedatatable
                     }
                 }
             }
-        } else {
-            $db_query = mysqli_query($this->conn, "SELECT * FROM persondetails");
+
+        }
+        
+        
+       
+        else {
+            $db_query = mysqli_query($this->conn, $main_query);
 
             if ($db_query->num_rows > 0) {
                 echo '<table class = "table table-bordered">
@@ -91,6 +101,60 @@ class Makedatatable
                 }
             }
         }
+
+        if($_POST['searchdata']){
+
+        $searchdata = $_POST['searchdata'];
+
+        // $query = "SELECT * FROM employee
+        // WHERE id  LIKE '%".$searchdata."%'
+        // OR emp_name LIKE '%".$searchdata."%' 
+        // OR email LIKE '%".$searchdata."%' 
+        // OR phone LIKE '%".$searchdata."%' 
+        }
+        $search_query= $main_query." " ."WHERE" ." ".  "fname"." ".  "LIKE" ." ". "%". $searchdata."%" ." "."OR".
+        " ". "lname" ." ". "LIKE" . " " . "%". $searchdata. "%" ." "."OR"
+        ." ". "dob" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        "OR"
+        ." "."age" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        "OR".
+        " ". "email" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        "OR".
+        " ". "mobno" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        "OR".
+        " ". "src1" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        "OR"
+        ." ". "camp" ." ". "LIKE" . " " . "%". $searchdata. "%" ." ".
+        
+        "OR" 
+        ." "."country" ." ". "LIKE" . " " . "%". $searchdata. "%";
+
+       // echo $search_query;
+
+        $search_res = mysqli_query($this->conn,$search_query);
+
+        if($search_res->num_rows >0){
+            while ($row = $search_res->fetch_assoc()) {
+
+
+                echo "<tr>
+                <td>" . $row['fname'] . "</td>
+                <td>" . $row['lname'] . "</td>
+                <td>" . $row['dob'] . "</td>
+                <td>" . $row['age'] . "</td>
+                <td>" . $row['email'] . "</td>
+                <td>" . $row['mobno'] . "</td>
+                <td>" . $row['src1'] . "</td>
+                <td>" . $row['camp'] . "</td>
+               <td>" . $row['country'] . "</td>
+                <td><a href='crud-form.php?delete=" . $row['id'] . "'>Delete</a></td>
+         </tr>";
+            }
+        }
+
+
+
+
     }
 
 
