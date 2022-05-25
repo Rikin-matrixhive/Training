@@ -50,6 +50,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     .pagination a:hover:not(.active) {
         background-color: #ddd;
     }
+    
 </style>
 
 <body>
@@ -61,12 +62,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <div class="result"></div> -->
 
             <select id="limit" class="form-select limits" style="width: 10%;" name="limits" onchange="datatable()">
-                <option value="">All</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
                 <option value="25">25</option>
+                <option value="All">All</option>
 
             </select>
 
@@ -79,9 +80,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <table class="table table-bordered">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-                        <th>#</th>
+                    <th># <select onclick="datatable()" id="ordering">
+                        <option value="ASC">Ascending order</option>
+                        <option value="DESC">Descending order</option>
+
+                    </select></th>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Surname</th>
                         <th>Birth Date</th>
                         <th>Age</th>
                         <th>Email id</th>
@@ -93,22 +99,20 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     </tr>
                 </thead>
                 <tbody id="response" class="pag_data">
+                  <br>
 
                 </tbody>
             </table>
-            <div id="pagination">
-                <a class="active" id="1" href="">1</a>
-                <a id="2" href="">2</a>
-                <a id="3" href="">3</a>
-            </div>
-            <!-- <div class="deletebutton">
-            <button type="button" class="btn btn-success btn-sm delete"  data-id="<?= $row['id']; ?>">Delete</button>            </div> -->
-
+           
+            
 
             <script>
                 function datatable(page) {
                     var limitdata = $("#limit").val();
                     var searchdata = $("#searchs").val();
+                    var sorting = $("#ordering").val();
+                    console.log(sorting);
+
                     if (searchdata <= 3) {
                         $("#err")
                     }
@@ -123,7 +127,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             limitdata: limitdata,
                             searchdata: searchdata,
                             data: {
-                                page: page
+                                page: page,
+                                sorting:sorting
                             }
 
                         },
@@ -138,18 +143,32 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 }
 
                 $(document).ready(function() {
-                    datatable();
+                    datatable();    
 
                 });
 
                 $(document).on("click", "#pagination a", function(e) {
-                    //alert("a");
                     e.preventDefault();
                     var page_id = $(this).attr("id");
-                    console.log(page_id);
-                    datatable(page_id);
+                    var limitdata = $("#limit").val();
+                    var searchdata = $("#searchs").val();
+                    
+
+                    $.ajax({
+                        type: "POST",
+                        url: "datatable.php",
+                        data: {page_id:page_id,
+                            limitdata:limitdata,
+                            searchdata:searchdata
+},
+                        success: function (paginationdata) {
+                            $(".pag_data").html(paginationdata);
+                        }
+                    });
+                    //datatable(page_id);
 
                 })
+
             </script>
         </div>
 
