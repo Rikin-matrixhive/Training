@@ -50,7 +50,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     .pagination a:hover:not(.active) {
         background-color: #ddd;
     }
-    
+
+    img {
+        width: 10px;
+    }
+
+    .sorting {
+        width: 30%;
+
+    }
 </style>
 
 <body>
@@ -80,38 +88,46 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <table class="table table-bordered">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-                    <th># <select onclick="datatable()" id="ordering">
-                        <option value="ASC">Ascending order</option>
-                        <option value="DESC">Descending order</option>
+                        <th>
+                            <select name="" id="sorting" class="form-select" onchange="datatable()">
+                                <option value="">Sorting Data</option>
+                                <option value="ASC">Ascending</option>
+                                <option value="DESC">Descending</option>
+                            </select>
 
-                    </select></th>
+                        </th>
                         <th>Id</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Birth Date</th>
-                        <th>Age</th>
-                        <th>Email id</th>
-                        <th>Mobile No</th>
-                        <th>Source</th>
+                        <th>Name </th>
+                        <th>Surname </th>
+                        <th>Birth Date </th>
+                        <th>Age </th>
+                        <th>Email id </th>
+                        <th>Mobile No </th>
+                            <th>Source</th>
                         <th>Campign</th>
-                        <th>City</th>
+                        <th>Country </th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="response" class="pag_data">
-                  <br>
+                    <br>
 
                 </tbody>
             </table>
-           
-            
+             <div class="pag-data">
+
+             </div>
+
 
             <script>
                 function datatable(page) {
+                    alert();
                     var limitdata = $("#limit").val();
                     var searchdata = $("#searchs").val();
-                    var sorting = $("#ordering").val();
+                    var sorting = $("#sorting").val();
                     console.log(sorting);
+
+                    //var sorting = $("#ordering").val();
 
                     if (searchdata <= 3) {
                         $("#err")
@@ -126,9 +142,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         data: {
                             limitdata: limitdata,
                             searchdata: searchdata,
+                            sorting: sorting,
                             data: {
                                 page: page,
-                                sorting:sorting
                             }
 
                         },
@@ -137,13 +153,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                             $("#response").html(datatables);
 
+                            // $(".pag-data").html(datatables);
 
                         }
                     });
                 }
 
                 $(document).ready(function() {
-                    datatable();    
+                    datatable();
 
                 });
 
@@ -152,23 +169,23 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     var page_id = $(this).attr("id");
                     var limitdata = $("#limit").val();
                     var searchdata = $("#searchs").val();
-                    
+
 
                     $.ajax({
                         type: "POST",
                         url: "datatable.php",
-                        data: {page_id:page_id,
-                            limitdata:limitdata,
-                            searchdata:searchdata
-},
-                        success: function (paginationdata) {
+                        data: {
+                            page_id: page_id,
+                            limitdata: limitdata,
+                            searchdata: searchdata
+                        },
+                        success: function(paginationdata) {
                             $(".pag_data").html(paginationdata);
                         }
                     });
                     //datatable(page_id);
 
                 })
-
             </script>
         </div>
 
