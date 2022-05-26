@@ -23,13 +23,11 @@
             $limitdata = $_POST['limitdata'];
             if ($limitdata == "All") {
                 $main_query = "SELECT * FROM persondetails";
-                echo $main_query;
             }
 
             if(isset($_POST['sorting'])&& $_POST['sorting'] != ""){
                 $sort_data = $_POST['sorting'];
-                $main_query .= " ". "ORDER BY". " " ."fname". " " . $sort_data;
-                echo $main_query;
+                $main_query .= " ". "ORDER BY". " " ."fname".","."lname"." " . $sort_data;
             }
             $offset = ($page - 1) * $limitdata;
             $main_query .= " " . "LIMIT" . " " . $offset . "," . $limitdata;          
@@ -42,7 +40,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $output .= '<tr> 
-                    <td><input type="checkbox" name="customer_id[]" onclick="datatable()" class="delete_customer" value="<?php echo $row["id"]; ?></td>
                     <td>' . $row['id'] . '</td>
                     <td>' . $row['fname'] . '</td>
                     <td>' . $row['lname'] . '</td> 

@@ -16,6 +16,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     <script src="https:ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="http:ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>See Employee details</title>
@@ -88,25 +89,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <table class="table table-bordered">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-                        <th>
-                            <select name="" id="sorting" class="form-select" onchange="datatable()">
-                                <option value="">Sorting Data</option>
-                                <option value="ASC">Ascending</option>
-                                <option value="DESC">Descending</option>
-                            </select>
 
-                        </th>
-                        <th>Id</th>
-                        <th>Name </th>
-                        <th>Surname </th>
-                        <th>Birth Date </th>
-                        <th>Age </th>
-                        <th>Email id </th>
-                        <th>Mobile No </th>
-                            <th>Source</th>
-                        <th>Campign</th>
-                        <th>Country </th>
-                        <th>Action</th>
+                        <th><a class="column_sort text-white" id="id" data-order="desc"> ID</a></th>
+                        <th><a class="column_sort text-white" id="name" data-order="desc"> Name</a></th>
+                        <th><a class="column_sort text-white" id="surname" data-order="desc"> Surname</a></th>
+                        <th><a class="column_sort text-white" id="birtdate" data-order="desc">Birthdate</a></th>
+                        <th><a class="column_sort text-white" id="age" data-order="desc"> Age</a></th>
+                        <th><a class="column_sort text-white" id="email" data-order="desc"> Email</a></th>
+                        <th><a class="column_sort text-white" id="mobile" data-order="desc"> Mobile</a></th>
+                        <th><a class="column_sort text-white" id="source" data-order="desc"> Source</a></th>
+                        <th><a class="column_sort text-white" id="campign" data-order="desc"> Campign</a></th>
+                        <th><a class="column_sort text-white" id="country" data-order="desc"> Country</a></th>
+
                     </tr>
                 </thead>
                 <tbody id="response" class="pag_data">
@@ -121,7 +115,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
             <script>
                 function datatable(page) {
-                    alert();
                     var limitdata = $("#limit").val();
                     var searchdata = $("#searchs").val();
                     var sorting = $("#sorting").val();
@@ -183,6 +176,20 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             $(".pag_data").html(paginationdata);
                         }
                     });
+                    
+                    $(document).ready(function(){
+                     $(document).on('click', '.column_sort',function(){
+                         var column_name= $(this).attr("id");
+                         var order = $(this).data("order");
+                         var arrow = "";
+
+                         if(order == 'desc'){
+                             arrow  = '<span class= "bi-arrow-down"></span>';
+                         }
+
+                     });
+                    });
+
                     //datatable(page_id);
 
                 })
