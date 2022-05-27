@@ -76,7 +76,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <option value="15">15</option>
                 <option value="20">20</option>
                 <option value="25">25</option>
-                <option value="All">All</option>
+                <option value="">All</option>
 
             </select>
 
@@ -86,39 +86,38 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
             <br>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered tables">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-
-                        <th><a class="column_sort text-white" id="id" data-order="desc"> ID</a></th>
-                        <th><a class="column_sort text-white" id="name" data-order="desc"> Name</a></th>
-                        <th><a class="column_sort text-white" id="surname" data-order="desc"> Surname</a></th>
-                        <th><a class="column_sort text-white" id="birtdate" data-order="desc">Birthdate</a></th>
-                        <th><a class="column_sort text-white" id="age" data-order="desc"> Age</a></th>
-                        <th><a class="column_sort text-white" id="email" data-order="desc"> Email</a></th>
-                        <th><a class="column_sort text-white" id="mobile" data-order="desc"> Mobile</a></th>
-                        <th><a class="column_sort text-white" id="source" data-order="desc"> Source</a></th>
-                        <th><a class="column_sort text-white" id="campign" data-order="desc"> Campign</a></th>
-                        <th><a class="column_sort text-white" id="country" data-order="desc"> Country</a></th>
-
+                        <input type='hidden' id='sort' value='asc'>
+                        <th onclick='datatable("id")'>Id</th>
+                        <th onclick='datatable("fname")'>Name</th>
+                        <th onclick='datatable("lname")'>Surname</th>
+                        <th onclick='datatable("dob")'>Birthdate</th>
+                        <th onclick='datatable("age")'>Age</th>
+                        <th onclick='datatable("email")'>Email</th>
+                        <th onclick='datatable("mobno")'>Mobile</th>
+                        <th onclick='datatable("src1")'>Source</th>
+                        <th onclick='datatable("camp")'>Campign</th>
+                        <th onclick='datatable("country")'>Country</th>
                     </tr>
                 </thead>
-                <tbody id="response" class="pag_data">
+                <tbody id="response" class="pag_data" data >
                     <br>
 
                 </tbody>
             </table>
-             <div class="pag-data">
+            <div class="pag-data">
 
-             </div>
+            </div>
 
 
             <script>
-                function datatable(page) {
+                function datatable(columnName) {
                     var limitdata = $("#limit").val();
+                    var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
-                    var sorting = $("#sorting").val();
-                    console.log(sorting);
+                    // var sorting = $(".datatable").attr("id");
 
                     //var sorting = $("#ordering").val();
 
@@ -135,15 +134,19 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         data: {
                             limitdata: limitdata,
                             searchdata: searchdata,
-                            sorting: sorting,
-                            data: {
-                                page: page,
-                            }
-
+                            columnName: columnName,
+                            sort: sort
                         },
 
-                        success: function(datatables) {
 
+
+                        success: function(datatables) {
+                            console.log(datatables);
+                            if (sort == "asc") {
+                                $("#sort").val("desc");
+                            } else {
+                                $("#sort").val("asc");
+                            }
                             $("#response").html(datatables);
 
                             // $(".pag-data").html(datatables);
@@ -176,21 +179,28 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             $(".pag_data").html(paginationdata);
                         }
                     });
-                    
-                    $(document).ready(function(){
-                     $(document).on('click', '.column_sort',function(){
-                         var column_name= $(this).attr("id");
-                         var order = $(this).data("order");
-                         var arrow = "";
 
-                         if(order == 'desc'){
-                             arrow  = '<span class= "bi-arrow-down"></span>';
-                         }
+                })
 
-                     });
+                $(document).on("click", "#pagination a", function(e) {
+                    e.preventDefault();
+                    var page_id = $(this).attr("id");
+                    var limitdata = $("#limit").val();
+                    var searchdata = $("#searchs").val();
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "datatable.php",
+                        data: {
+                            page_id: page_id,
+                            limitdata: limitdata,
+                            searchdata: searchdata
+                        },
+                        success: function(paginationdata) {
+                            $(".pag_data").html(paginationdata);
+                        }
                     });
-
-                    //datatable(page_id);
 
                 })
             </script>
