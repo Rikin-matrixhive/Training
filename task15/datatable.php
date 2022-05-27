@@ -20,35 +20,27 @@ class Makedatatable
             $searchdata = $_POST['searchdata'];
             $db_query .= " " . "WHERE" . " " . "fname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "lname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "dob" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "age" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "email" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%' " . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "src1" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "camp" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "country" . " " . "LIKE" . " " . "'%" . $searchdata . "%'";
         }
-       
-        if($_POST['columnName']){
 
-         $page = $_POST['columnName'];
-          $sort = $_POST['sort'];
-          $db_query .= " " ."ORDER BY". " ".$page." ".$sort." ";
-          $result = mysqli_query($this->conn, $db_query);
+        if ($_POST['columnName']) {
 
-          if($result->num_rows > 0){
-              while($row = $result->fetch_assoc()){
-
-                echo $row["fname"];
-                echo "<br>";
-
-                echo $row["fname"];
-                echo "<br>";
-              }
-          }
-
-    
-          
+            $page = $_POST['columnName'];
+            $sort = $_POST['sort'];
+            $db_query .= " " . "ORDER BY" . " " . $page . " " . $sort . " ";
+            
         }
         $main_res = mysqli_query($this->conn, $db_query);
         $total_record = mysqli_num_rows($main_res);
         $limit = $_POST['limitdata'] ? $_POST['limitdata'] : $total_record;
         $offset = ($page - 1) * $limit;
+        if($offset <= 0){
+            $offset = 0;
+        }
+      
+       
         $db_query .= " " . "LIMIT" . " " . $offset . "," . $limit;
         $pag_id = $_POST['page_id'];
-        $offset = ($pag_id - 1) * $limit;
+        
+        echo $db_query;
         $result = mysqli_query($this->conn, $db_query);
         $total_pages = ceil($result / $limit);
         $output = "";

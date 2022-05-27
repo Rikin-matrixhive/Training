@@ -90,6 +90,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <thead class="bg-primary text-white text-center">
                     <tr>
                         <input type='hidden' id='sort' value='asc'>
+                        <th onclick='datatable("id")'>#</th>
                         <th onclick='datatable("id")'>Id</th>
                         <th onclick='datatable("fname")'>Name</th>
                         <th onclick='datatable("lname")'>Surname</th>
