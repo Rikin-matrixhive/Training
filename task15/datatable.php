@@ -26,45 +26,47 @@ class Makedatatable
             $page = $_POST['columnName'];
             $sort = $_POST['sort'];
             $db_query .= " " . "ORDER BY" . " " . $page . " " . $sort . " ";
-            
+            echo $db_query;
         }
         $main_res = mysqli_query($this->conn, $db_query);
         $total_record = mysqli_num_rows($main_res);
         $limit = $_POST['limitdata'] ? $_POST['limitdata'] : $total_record;
         $offset = ($page - 1) * $limit;
-        if($offset <= 0){
+        if ($offset <= 0) {
             $offset = 0;
         }
-      
-       
+
+
         $db_query .= " " . "LIMIT" . " " . $offset . "," . $limit;
         $pag_id = $_POST['page_id'];
-        
-        echo $db_query;
         $result = mysqli_query($this->conn, $db_query);
         $total_pages = ceil($result / $limit);
         $output = "";
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $output .= '
-                <div><tr> 
-                <td><input type="checkbox" name="customer_id[]" id = "employee_table" onclick="datatable()" class="delete_customer" value="<?php echo $row["id"]; ?></td>
-                <td>' . $row['id'] . '</td>
-                <td>' . $row['fname'] . '</td>
-                <td>' . $row['lname'] . '</td> 
-                <td>' . $row['dob'] . '</td> 
-                <td>' . $row['age'] . '</td> 
-                <td>' . $row['email'] . '</td> 
-                <td>' . $row['mobno'] . '</td> 
-                <td>' . $row['src1'] . '</td> 
-                <td>' . $row['camp'] . '</td> 
-                <td>' . $row['country'] . '</td> 
 
-                </tr>
-                </div>';
+
+        if ($result->num_rows > 0) {
+         
+
+            while ($row = $result->fetch_assoc()) {
+                $output .= "
+                <div><tr> 
+                <td><input type ='checkbox' value= '{$row['id']}'></td>
+                <td> {$row['id']}</td>
+                <td> {$row['fname']}</td>
+                <td> {$row['lname']}</td>
+                <td> {$row['dob']}</td>
+                <td> {$row['age']}</td>
+                <td> {$row['email']}</td>
+                <td> {$row['mobno']}</td>
+                <td> {$row['src1']}</td>
+                <td> {$row['camp']}</td>
+                <td> {$row['country']}</td>
+                <td><a href ='index.php?delete_id:{$row['id']}'>Delete</a></td>
+
+                </div>";
             }
-            $sql = "SELECT * FROM persondetails";
-            $res = mysqli_query($this->conn, $sql);
+            //$sql = "SELECT * FROM persondetails";
+            $res = mysqli_query($this->conn, $db_query);
             $total_records = mysqli_num_rows($res);
             $total_pages = ceil($total_records / $limit);
             $output .= "<div class = 'pagination' id='pagination' style='margin-left:100%'>";
@@ -87,6 +89,24 @@ class Makedatatable
         } else {
             echo "Record does not delete try again";
         }
+    }
+
+    public function multipleDelete(){
+
+        $emp_id= $_POST['id'];
+        $str = implode(", ", $emp_id);
+        $sql_query= "DELETE FROM persondata WHERE id IN({$str})";
+        $delete_res = mysqli_query($this->conn,$sql_query);
+        if($delete_res){
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+
+    
+
+
     }
 }
 

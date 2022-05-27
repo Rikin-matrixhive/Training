@@ -82,15 +82,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
             <div class="livesearch">
                 <input type="text" placeholder="Search" onkeyup="datatable()" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
-">
+"> 
             </div>
+        
+            <a href="" class="btn btn-danger" id="multiple_delete">Delete records</a>
             <br>
 
+            <span>Data deleted</span>
             <table class="table table-bordered tables">
                 <thead class="bg-primary text-white text-center">
                     <tr>
                         <input type='hidden' id='sort' value='asc'>
-                        <th onclick='datatable("id")'>#</th>
+                        <th onclick='datatable("id")' >#</th>
                         <th onclick='datatable("id")'>Id</th>
                         <th onclick='datatable("fname")'>Name</th>
                         <th onclick='datatable("lname")'>Surname</th>
@@ -101,9 +104,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         <th onclick='datatable("src1")'>Source</th>
                         <th onclick='datatable("camp")'>Campign</th>
                         <th onclick='datatable("country")'>Country</th>
+                        <th >Action</th>
+
                     </tr>
                 </thead>
-                <tbody id="response" class="pag_data" data >
+                <tbody id="response" class="pag_data" data>
                     <br>
 
                 </tbody>
@@ -143,7 +148,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                         success: function(datatables) {
                             console.log(datatables);
-                            if (sort == "asc") {
+                            if (sort == "asc" ) {
                                 $("#sort").val("desc");
                             } else {
                                 $("#sort").val("asc");
@@ -157,7 +162,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 }
 
                 $(document).ready(function() {
-                    datatable();
+                    datatable(1);
 
                 });
 
@@ -189,21 +194,49 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     var limitdata = $("#limit").val();
                     var searchdata = $("#searchs").val();
 
-
-                    $.ajax({
-                        type: "POST",
-                        url: "datatable.php",
-                        data: {
-                            page_id: page_id,
-                            limitdata: limitdata,
-                            searchdata: searchdata
-                        },
-                        success: function(paginationdata) {
-                            $(".pag_data").html(paginationdata);
-                        }
-                    });
+                     datatable(page_id);
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "datatable.php",
+                    //     data: {
+                    //         page_id: page_id,
+                    //         limitdata: limitdata,
+                    //         searchdata: searchdata
+                    //     },
+                    //     success: function(paginationdata) {
+                    //         //$(".pag_data").html(paginationdata);
+                    //     }
+                    // });
 
                 })
+              $("#multiple_delete").on("click", function () {
+                   var id= [];
+                   $(":checkbox:checked").each(function(key){
+                       id[key]= $(this).val();
+
+                   })
+                   if(id.length === 0){
+                       alert("Please select atleast one checkbox");
+                    
+
+                   }
+                   else{
+                       if(confirm("Are you Sure want to delete record"))
+                       $.ajax({
+                           type: "POST",
+                           url: "datatable.php",
+                           data: {id:id},
+                           dataType: "dataType",
+                           success: function (deletedata) {
+                            if(deletedata == 1 ){
+
+                            }
+
+                           }
+                       });
+                   }
+
+              });
             </script>
         </div>
 
