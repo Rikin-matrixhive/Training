@@ -119,10 +119,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 
             <script>
-                function datatable(columnName) {
+                function datatable(page = 1) {
+                    alert(page);
                     var limitdata = $("#limit").val();
                     var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
+                   
                     // var sorting = $(".datatable").attr("id");
 
                     //var sorting = $("#ordering").val();
@@ -140,8 +142,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         data: {
                             limitdata: limitdata,
                             searchdata: searchdata,
-                            columnName: columnName,
-                            sort: sort
+                            sort: sort,
+                            page_id:page
                         },
 
 
@@ -162,53 +164,53 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 }
 
                 $(document).ready(function() {
-                    datatable(1);
+                    datatable();
 
                 });
 
-                $(document).on("click", "#pagination a", function(e) {
-                    e.preventDefault();
-                    var page_id = $(this).attr("id");
-                    var limitdata = $("#limit").val();
-                    var searchdata = $("#searchs").val();
+                // $(document).on("click", "#pagination a", function(e) {
+                //     e.preventDefault();
+                //     var page_id = $(this).attr("id");
+                //     var limitdata = $("#limit").val();
+                //     var searchdata = $("#searchs").val();
 
 
-                    $.ajax({
-                        type: "POST",
-                        url: "datatable.php",
-                        data: {
-                            page_id: page_id,
-                            limitdata: limitdata,
-                            searchdata: searchdata
-                        },
-                        success: function(paginationdata) {
-                            $(".pag_data").html(paginationdata);
-                        }
-                    });
+                //     $.ajax({
+                //         type: "POST",
+                //         url: "datatable.php",
+                //         data: {
+                //             page_id: page_id,
+                //             limitdata: limitdata,
+                //             searchdata: searchdata
+                //         },
+                //         success: function(paginationdata) {
+                //             $(".pag_data").html(paginationdata);
+                //         }
+                //     });
 
-                })
+                // })
 
-                $(document).on("click", "#pagination a", function(e) {
-                    e.preventDefault();
-                    var page_id = $(this).attr("id");
-                    var limitdata = $("#limit").val();
-                    var searchdata = $("#searchs").val();
+                // $(document).on("click", "#pagination a", function(e) {
+                //     e.preventDefault();
+                //     var page_id = $(this).attr("id");
+                //     var limitdata = $("#limit").val();
+                //     var searchdata = $("#searchs").val();
 
-                     datatable(page_id);
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url: "datatable.php",
-                    //     data: {
-                    //         page_id: page_id,
-                    //         limitdata: limitdata,
-                    //         searchdata: searchdata
-                    //     },
-                    //     success: function(paginationdata) {
-                    //         //$(".pag_data").html(paginationdata);
-                    //     }
-                    // });
+                //      datatable(page_id);
+                //     // $.ajax({
+                //     //     type: "POST",
+                //     //     url: "datatable.php",
+                //     //     data: {
+                //     //         page_id: page_id,
+                //     //         limitdata: limitdata,
+                //     //         searchdata: searchdata
+                //     //     },
+                //     //     success: function(paginationdata) {
+                //     //         //$(".pag_data").html(paginationdata);
+                //     //     }
+                //     // });
 
-                })
+                // })
               $("#multiple_delete").on("click", function () {
                    var id= [];
                    $(":checkbox:checked").each(function(key){
