@@ -1,5 +1,5 @@
 <?php
-class Makedatatable
+class Datatable
 {
 
     public function __construct()
@@ -22,7 +22,10 @@ class Makedatatable
             $searchdata = $_POST['searchdata'];
             $db_query .= " " . "WHERE" . " " . "fname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "lname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "dob" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "age" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "email" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%' " . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "src1" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "camp" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "country" . " " . "LIKE" . " " . "'%" . $searchdata . "%'";
         }
-
+        // $data_name = $_POST['data_name'] ? $_POST['data-name'] : "id";
+        // $data_dir = $_POST['data_dir'] ? $_POST['data_dir'] : "ASC";
+        // var_dump($data_name);
+     
         if ($_POST['data_name'] && $_POST['data_dir']) {
             $data_name = $_POST['data_name'];
             $data_dir = $_POST['data_dir'];
@@ -69,14 +72,30 @@ class Makedatatable
         }
     }
 
-    public function deleteRecord($id)
+    public function deleteRecord()
+    {
+        $id = $_POST['id'];
+        //print_r("$id");
+        $query = "DELETE FROM persondetails WHERE id =$id";
+        //$sql = $this->conn->query($query);
+        $sql = mysqli_query($this->conn, $query);
+        //echo $sql;
+        if ($sql == true) {
+            echo "Record  delete successfully";
+        }
+    }
+
+
+    public function multipleDelete()
     {
 
-        $query = mysqli_query($this->conn, "DELETE FROM persondetails WHERE id = '$id'");
-        if ($query == true) {
-            header("Location:view_empdetails.php");
-        } else {
-            echo "Record does not delete try again";
+        $user_id = $_POST['id'];
+        $str = implode(",", $user_id);
+
+        $sql_query = "DELETE FROM persondetails WHERE id IN({$str})";
+        $delete_res = mysqli_query($this->conn, $sql_query);
+        if ($delete_res) {
+            echo 1;
         }
     }
 }
@@ -84,9 +103,12 @@ class Makedatatable
 
 
 
-
-$rowobj = new Makedatatable();
+$obj = new Datatable();
+$delete = new Datatable();
+$rowobj = new Datatable();
 if (count($_POST) > 0) {
 
-    $rowobj->tableData();
+    $obj->tableData();
+    $delete->multipleDelete();
+    $rowobj->deleteRecord();
 }

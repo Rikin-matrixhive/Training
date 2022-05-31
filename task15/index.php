@@ -1,9 +1,8 @@
 <?php
 include 'datatable.php';
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $deleteId = $_GET['id'];
-    $rowobj->deleteRecord($id);
-}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,24 +84,23 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 ">
             </div>
 
-            <a href="" class="btn btn-danger" id="multiple_delete">Delete records</a>
+            <a href="" class="btn btn-danger" id="delete-btn">Delete records</a>
             <br>
 
-            <span>Data deleted</span>
             <table class="table table-bordered tables">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-                        <th class="head-col" data-dir="ASC" data-name="id">Delete</th>|
-                        <th class="head-col" data-dir="ASC" data-name="id">Id</th>|
-                        <th class="head-col" data-dir="ASC" data-name="fname">Name</th>
-                        <th class="head-col" data-dir="ASC" data-name="lname">Surname</th>
-                        <th class="head-col" data-dir="ASC" data-name="dob">Birthdate</th>
-                        <th class="head-col" data-dir="ASC" data-name="age">Age</th>
-                        <th class="head-col" data-dir="ASC" data-name="email">Email</th>
-                        <th class="head-col" data-dir="ASC" data-name="mobno">Mobile</th>
-                        <th class="head-col" data-dir="ASC" data-name="src1">Source</th>
-                        <th class="head-col" data-dir="ASC" data-name="camp">Campign</th>
-                        <th class="head-col" data-dir="ASC" data-name="country">Country</th>
+                        <th>Delete</th>
+                        <th class="head-col" data-dir="" data-name="id">Id</th>
+                        <th class="head-col" data-dir="" data-name="fname">Name</th>
+                        <th class="head-col" data-dir="" data-name="lname">Surname</th>
+                        <th class="head-col" data-dir="" data-name="dob">Birthdate</th>
+                        <th class="head-col" data-dir="" data-name="age">Age</th>
+                        <th class="head-col" data-dir="" data-name="email">Email</th>
+                        <th class="head-col" data-dir="" data-name="mobno">Mobile</th>
+                        <th class="head-col" data-dir="" data-name="src1">Source</th>
+                        <th class="head-col" data-dir="" data-name="camp">Campign</th>
+                        <th class="head-col" data-dir="" data-name="country">Country</th>
 
                         <th>Action</th>
 
@@ -113,23 +111,17 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                 </tbody>
             </table>
-            <div class="pag-data">
-
-            </div>
+            <div id="error-message"></div>
+            <div id="success-message"></div>
+            <div class="pag-data"></div>
 
 
             <script>
-                function datatable(page = 1, data_name, data_dir) {
+                function datatable(page = 1, data_name, data_dir, id) {
 
                     var limitdata = $("#limit").val();
                     var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
-
-
-
-                    console.log(data_name);
-                    console.log(data_dir);
-
                     if (searchdata <= 3) {
                         $("#err")
                     }
@@ -143,6 +135,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             page_id: page,
                             data_name: data_name,
                             data_dir: data_dir,
+                            id: id
 
                         },
 
@@ -168,16 +161,77 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         var data_name = $(this).attr("data-name");
                         var data_dir = $(this).attr("data-dir");
 
-                        if (data_dir == "ASC") {
-                            $(".head-col").attr("data-dir", "DESC");
+                        if (data_dir == "") {
+
+                            $(this).attr("data-dir", "DESC");
                         } else {
-                            $(".head-col").attr("data-dir", "ASC");
+                            $(this).attr("data-dir", "ASC");
 
                         }
                         datatable(1, data_name, data_dir);
 
                     });
 
+                });
+
+                $(document).on("click", ".delete-btn", function() {
+                    var stuId = $(this).data("id");
+                    var element = this;
+                    // alert(stuId);
+
+                    $.ajax({
+                        url: "datatable.php",
+                        type: "POST",
+                        data: {
+                            id: stuId
+                        },
+                        success: function(data) {
+                            //console.log(data)
+                            if (data == 1) {
+                                $(element).closest("tr").fadeOut();
+                            }
+                        }
+                    });
+                    datatable();
+                });
+
+
+                // //multiple-delete
+                $("#delete-btn").on("click", function() {
+
+                    var id = [];
+                    console.log(id);
+
+                    $(":checkbox:checked").each(function(key) {
+                        id[key] = $(this).val();
+
+                    });
+                    console.log(id);
+                    if (id.length === 0) {
+                        alert("PLEASE! select checkbox.");
+                    } else {
+                        if (confirm("do you really want delete these records?")) {
+                            $.ajax({
+                                url: "datatable.php",
+                                type: "POST",
+                                data: {
+                                    id: id
+                                },
+                                success: function(data) {
+                                    console.log(data);
+                                    if (data == true) {
+                                        $("#success-message").html("data delete successfully.").slideDown();
+                                        $("#error-message").slideUp();
+                                    } else {
+                                        $("#error-message").html("data  delete ").slideDown();
+                                        $("#success-message").slideUp();
+                                    }
+                                }
+                            });
+                            datatable();
+                        }
+
+                    };
                 });
             </script>
         </div>

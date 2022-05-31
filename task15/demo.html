@@ -1,10 +1,103 @@
-<th class="head-col" data-dir = "ASC" data-name="id">Id</th>|
-<th class="head-col" data-dir = "ASC" data-name="fname">Name</th>
-<th class="head-col" data-dir = "ASC" data-name="lname">Surname</th>
-<th class="head-col" data-dir = "ASC" data-name="dob">Birthdate</th>
-<th class="head-col" data-dir = "ASC" data-name="age">Age</th>
-<th class="head-col" data-dir = "ASC" data-name="email">Email</th>
-<th class="head-col" data-dir = "ASC" data-name="mobno">Mobile</th>
-<th class="head-col" data-dir = "ASC" data-name="src1">Source</th>
-<th class="head-col" data-dir = "ASC" data-name="camp">Campign</th>
-<th class="head-col" data-dir = "ASC" data-name="country">Country</th>
+function userData(columnName) {
+                   // alert("aaa");
+                    var limit = $("#limit").val();
+                    var search = $("#search").val();
+                    var sort = $("#sort").val();
+                    var page_id = $(this).attr("id");
+
+                   // console.log(sort);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "db.php",
+                        data: {
+                            limit: limit,
+                            search: search,
+                            columnName: columnName,
+                            sort: sort,
+                            page_id:page_id
+
+                        },
+
+                        success: function(data) {
+                           // console.log(data);
+                            if (sort == "ASC") {
+                                $("#sort").val("DESC");
+                            } else {
+                                $("#sort").val("ASC");
+                            }
+                            $(".paginate").html(data);
+                        }
+                    });
+                }
+
+                $(document).ready(function() {
+                    userData();    
+
+                });
+
+                 $(document).on("click", "#pagination a", function(e) {
+                     e.preventDefault();
+                    // userData();
+                      var page_id = $(this).attr("id");
+                      var limit = $("#limit").val();
+                      var search = $("#search").val();
+                      var sort = $("#sort").val();
+
+                      $.ajax({
+                          type: "POST",
+                          url: "db.php",
+                          data: {
+                                page_id:page_id,
+                                 limit:limit,
+                                 search:search,
+                                // columnName: columnName,
+                                 sort:sort
+                              
+                               },
+                          success: function (pagedata) {
+                              $(".paginate").html(pagedata);
+                          }
+                      });
+                    // userData(page_id);
+                 });
+
+            
+
+                    // //multiple-delete
+                    $("#delete-btn").on("click",function(){
+                    
+                    var id=[];
+                     console.log(id);
+
+                    $(":checkbox:checked").each(function(key){
+                        id[key] = $(this).val();
+
+                    });
+                     console.log(id);
+                    if(id.length === 0){
+                        alert("PLEASE! select checkbox.");
+                    } else {
+                    if(confirm ("do you really want delete these records?")){
+                        $.ajax({
+                            url:"db.php",
+                            type:"POST",
+                            data : {id :id},
+                            success: function(data){
+                            console.log(data);
+                            if(data == true){
+                                $("#success-message").html("data delete successfully.").slideDown();
+                                $("#error-message").slideUp();
+                            }else{
+                                $("#error-message").html("data can't delete ").slideDown();
+                                $("#success-message").slideUp();
+                            }
+                            }
+                        });
+                        userData();  
+                    }   
+                  
+                    };
+                    });
+
+            </script>
