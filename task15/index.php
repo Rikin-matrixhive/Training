@@ -82,9 +82,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
             <div class="livesearch">
                 <input type="text" placeholder="Search" onkeyup="datatable()" class="form-control" id="searchs" style="width: 30%; margin-left:70%;    margin-top: -36px;
-"> 
+">
             </div>
-        
+
             <a href="" class="btn btn-danger" id="multiple_delete">Delete records</a>
             <br>
 
@@ -92,19 +92,19 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <table class="table table-bordered tables">
                 <thead class="bg-primary text-white text-center">
                     <tr>
-                        <input type='hidden' id='sort' value='asc'>
-                        <th onclick='datatable("id")' >#</th>
-                        <th onclick='datatable("id")'>Id</th>
-                        <th onclick='datatable("fname")'>Name</th>
-                        <th onclick='datatable("lname")'>Surname</th>
-                        <th onclick='datatable("dob")'>Birthdate</th>
-                        <th onclick='datatable("age")'>Age</th>
-                        <th onclick='datatable("email")'>Email</th>
-                        <th onclick='datatable("mobno")'>Mobile</th>
-                        <th onclick='datatable("src1")'>Source</th>
-                        <th onclick='datatable("camp")'>Campign</th>
-                        <th onclick='datatable("country")'>Country</th>
-                        <th >Action</th>
+                        <th class="head-col" data-dir="ASC" data-name="id">Delete</th>|
+                        <th class="head-col" data-dir="ASC" data-name="id">Id</th>|
+                        <th class="head-col" data-dir="ASC" data-name="fname">Name</th>
+                        <th class="head-col" data-dir="ASC" data-name="lname">Surname</th>
+                        <th class="head-col" data-dir="ASC" data-name="dob">Birthdate</th>
+                        <th class="head-col" data-dir="ASC" data-name="age">Age</th>
+                        <th class="head-col" data-dir="ASC" data-name="email">Email</th>
+                        <th class="head-col" data-dir="ASC" data-name="mobno">Mobile</th>
+                        <th class="head-col" data-dir="ASC" data-name="src1">Source</th>
+                        <th class="head-col" data-dir="ASC" data-name="camp">Campign</th>
+                        <th class="head-col" data-dir="ASC" data-name="country">Country</th>
+
+                        <th>Action</th>
 
                     </tr>
                 </thead>
@@ -119,23 +119,20 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 
             <script>
-                function datatable(page = 1) {
-                    alert(page);
+                function datatable(page = 1, data_name, data_dir) {
+
                     var limitdata = $("#limit").val();
                     var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
-                   
-                    // var sorting = $(".datatable").attr("id");
 
-                    //var sorting = $("#ordering").val();
+
+
+                    console.log(data_name);
+                    console.log(data_dir);
 
                     if (searchdata <= 3) {
                         $("#err")
                     }
-
-                    // var pagination= $("button").text();
-                    // console.log(pagination);
-
                     $.ajax({
                         type: "POST",
                         url: "datatable.php",
@@ -143,102 +140,45 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             limitdata: limitdata,
                             searchdata: searchdata,
                             sort: sort,
-                            page_id:page
+                            page_id: page,
+                            data_name: data_name,
+                            data_dir: data_dir,
+
                         },
 
 
 
                         success: function(datatables) {
-                            console.log(datatables);
-                            if (sort == "asc" ) {
-                                $("#sort").val("desc");
-                            } else {
-                                $("#sort").val("asc");
-                            }
+
+
                             $("#response").html(datatables);
 
                             // $(".pag-data").html(datatables);
 
                         }
+
                     });
                 }
 
                 $(document).ready(function() {
                     datatable();
 
+                    $(".head-col").click(function(e) {
+                        //alert();
+                        var data_name = $(this).attr("data-name");
+                        var data_dir = $(this).attr("data-dir");
+
+                        if (data_dir == "ASC") {
+                            $(".head-col").attr("data-dir", "DESC");
+                        } else {
+                            $(".head-col").attr("data-dir", "ASC");
+
+                        }
+                        datatable(1, data_name, data_dir);
+
+                    });
+
                 });
-
-                // $(document).on("click", "#pagination a", function(e) {
-                //     e.preventDefault();
-                //     var page_id = $(this).attr("id");
-                //     var limitdata = $("#limit").val();
-                //     var searchdata = $("#searchs").val();
-
-
-                //     $.ajax({
-                //         type: "POST",
-                //         url: "datatable.php",
-                //         data: {
-                //             page_id: page_id,
-                //             limitdata: limitdata,
-                //             searchdata: searchdata
-                //         },
-                //         success: function(paginationdata) {
-                //             $(".pag_data").html(paginationdata);
-                //         }
-                //     });
-
-                // })
-
-                // $(document).on("click", "#pagination a", function(e) {
-                //     e.preventDefault();
-                //     var page_id = $(this).attr("id");
-                //     var limitdata = $("#limit").val();
-                //     var searchdata = $("#searchs").val();
-
-                //      datatable(page_id);
-                //     // $.ajax({
-                //     //     type: "POST",
-                //     //     url: "datatable.php",
-                //     //     data: {
-                //     //         page_id: page_id,
-                //     //         limitdata: limitdata,
-                //     //         searchdata: searchdata
-                //     //     },
-                //     //     success: function(paginationdata) {
-                //     //         //$(".pag_data").html(paginationdata);
-                //     //     }
-                //     // });
-
-                // })
-              $("#multiple_delete").on("click", function () {
-                   var id= [];
-                   $(":checkbox:checked").each(function(key){
-                       id[key]= $(this).val();
-
-                   })
-                   if(id.length === 0){
-                       alert("Please select atleast one checkbox");
-                    
-
-                   }
-                   else{
-                       if(confirm("Are you Sure want to delete record"))
-                       $.ajax({
-                           type: "POST",
-                           url: "datatable.php",
-                           data: {id:id},
-                           dataType: "dataType",
-                           success: function (deletedata) {
-                            if(deletedata == 1 ){
-
-                            }
-
-                           }
-                       });
-                   }
-
-              });
             </script>
         </div>
 
