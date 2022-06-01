@@ -91,15 +91,16 @@ include 'datatable.php';
                 <thead class="bg-primary text-white text-center">
                     <tr>
                         <th>Delete</th>
-                        <th class="head-col" data-dir="" data-name="id">Id</th>
-                        <th class="head-col" data-dir="" data-name="fname">Name</th>
-                        <th class="head-col" data-dir="" data-name="lname">Surname</th>
-                        <th class="head-col" data-dir="" data-name="dob">Birthdate</th>
-                        <th class="head-col" data-dir="" data-name="age">Age</th>
-                        <th class="head-col" data-dir="" data-name="email">Email</th>
-                        <th class="head-col" data-dir="" data-name="mobno">Mobile</th>
-                        <th class="head-col" data-dir="" data-name="src1">Source</th>
-                        <th class="head-col" data-dir="" data-name="camp">Campign</th>
+                        <input= "hidden" value="">
+                        <th class="head-col" data-dir="" data-name="id">Id<span class= "arrow text-white" ></span></th>
+                        <th class="head-col" data-dir="" data-name="fname">Name<span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="lname">Surname <span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="dob">Birthdate<span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="age">Age <span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="email">Email <span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="mobno">Mobile <span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="src1">Source <span class= "arrow text-white"></span></th>
+                        <th class="head-col" data-dir="" data-name="camp">Campign </th>
                         <th class="head-col" data-dir="" data-name="country">Country</th>
 
                         <th>Action</th>
@@ -118,13 +119,13 @@ include 'datatable.php';
 
             <script>
                 function datatable(page = 1, data_name, data_dir, id) {
-
                     var limitdata = $("#limit").val();
                     var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
                     if (searchdata <= 3) {
                         $("#err")
                     }
+                    
                     $.ajax({
                         type: "POST",
                         url: "datatable.php",
@@ -146,8 +147,6 @@ include 'datatable.php';
 
                             $("#response").html(datatables);
 
-                            // $(".pag-data").html(datatables);
-
                         }
 
                     });
@@ -160,14 +159,25 @@ include 'datatable.php';
                         //alert();
                         var data_name = $(this).attr("data-name");
                         var data_dir = $(this).attr("data-dir");
-
-                        if (data_dir == "") {
-
+                        var arrow = "";
+                        if (data_dir == "" || data_dir == "ASC") {
                             $(this).attr("data-dir", "DESC");
+
                         } else {
                             $(this).attr("data-dir", "ASC");
 
                         }
+                        $(".arrow").html("");
+                        if(data_dir == "ASC")
+                        {
+                            $(this).find(".arrow").html("<img src = 'arrow-up.svg'>");
+                        }
+                        else{
+                            $(this).find(".arrow").html("<img src = 'arrow-down.svg'>");
+
+                        }
+                
+                       
                         datatable(1, data_name, data_dir);
 
                     });
@@ -233,6 +243,7 @@ include 'datatable.php';
 
                     };
                 });
+               
             </script>
         </div>
 
