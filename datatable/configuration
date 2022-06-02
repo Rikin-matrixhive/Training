@@ -1,0 +1,24 @@
+
+
+Configuration
+
+Server-side processing in DataTables is enabled through use of the serverSide option. Simply set it to true and DataTables will operate in server-side processing mode. You will also want to use the ajax option to specify the URL where DataTables should get its Ajax data from. As such, the simplest server-side processing initialisation is:	
+
+
+$('#example').DataTable( {
+    serverSide: true,
+    ajax: '/data-source'
+} );
+
+
+
+Configuration of how DataTables makes the Ajax request is configured through the ajax option. In the above example we used it as a string, which instructs DataTables to use its default settings for making the Ajax request. However, you can customise these settings by passing ajax in as an object. As an object, ajax maps directly onto the jQuery ajax configuration object, so any options you can use in a jQuery request, you can also use with DataTables! For example, to make a POST request:
+
+
+$('#example').DataTable( {
+    serverSide: true,
+    ajax: {
+        url: '/data-source',
+        type: 'POST'
+    }
+} );

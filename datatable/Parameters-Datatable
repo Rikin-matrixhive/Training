@@ -1,0 +1,36 @@
+Server-side processing
+
+
+How to send parameters: When making a request to the server using server-side processing, DataTables will send the following data in order to let the server know what data is required:
+
+
+Draw = it is use to insure ajax return from server side processing request are drawn in sequance by table (Integer)
+
+Start= paging first record indicator this is start point of current data set (integer)
+
+length: number of record that table can display current draw it is expected that number of record returned will be equal to this number unless the server has fewer records to return(integer)
+
+search: Global search value. To be applied to all columns which have searchable as true.(string)
+
+search (regex) = true if global filter treated as a regular expression for advance searching
+
+order[i][column = for ordering (column wise)
+
+
+
+order[i][dir]	= for ordering (ASC/DESc)
+
+
+columns[i][name] - colums defined by columns name
+
+columns[i][searchable]:Flag to indicate if this column is searchable (true) or not (false). This is controlled by
+
+
+columns[i][orderable]:Flag to indicate if this column is orderable (true) or not (false). This is controlled by
+
+
+columns[i][search][value]:Search value to apply to this specific column.
+
+
+columns[i][search][regex]
+

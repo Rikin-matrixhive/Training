@@ -21,9 +21,17 @@ class Datatable
         $output = "";
         $total_res = mysqli_query($this->conn, $db_query);
         $total_record  = mysqli_num_rows($total_res);
+        print_r($total_record );
         if ($_POST['searchdata']) {   #for search data
             $searchdata = $_POST['searchdata'];
-            $db_query .= " " . "WHERE" . " " . "fname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "lname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "dob" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "age" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "email" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%' " . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "src1" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "camp" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "country" . " " . "LIKE" . " " . "'%" . $searchdata . "%'";
+            $db_query .= " WHERE fname LIKE '%{$searchdata}%'
+            OR lname LIKE '%{$searchdata}%'
+            OR dob LIKE '%{$searchdata}%'
+            OR age LIKE '%{$searchdata}%'
+            OR q    email LIKE '%{$searchdata}%'
+            OR mobno LIKE '%{$searchdata}%'
+            OR src1 LIKE '%{$searchdata}%'
+            OR country LIKE '%{$searchdata}%'";
         }
         $data_name = $_POST['data_name'] ? $_POST['data_name'] : "id";
         $data_dir = $_POST['data_dir'] ? $_POST['data_dir'] : "ASC";
@@ -31,7 +39,6 @@ class Datatable
         if ($data_name && $data_dir) {   # for sorting
 
             $db_query .= " " . "ORDER BY" . " " . $data_name . " " . $data_dir;
-            echo $db_query;
         }
         $limit = ($_POST['limitdata'] && $_POST['limitdata'] != "") ? $_POST['limitdata'] : (($_POST['limitdata'] == "")  ? $total_record : 5);
         $offset = ($page - 1) * $limit;
@@ -60,7 +67,7 @@ class Datatable
                 <td> {$row['src1']}</td>
                 <td> {$row['camp']}</td>
                 <td> {$row['country']}</td>
-                <td><button class='delete-btn' data-id='{$row["id"]}'>Delete</button></td>
+                <td><button class='delete-btn btn btn-danger' data-id='{$row["id"]}'>Delete</button></td>
                 </div>";
             }
             $output .= "<div class = 'pagination' id='pagination'  >";
@@ -75,7 +82,7 @@ class Datatable
     }
     # for delete
 
-    public function deleteRecord()
+    public function deleteRecord()  
     {
         $id = $_POST['id'];
         $query = "DELETE FROM persondetails WHERE id =$id";
@@ -87,7 +94,7 @@ class Datatable
     }
 
     # for multiple delete
-    public function multipleDelete()
+    public function multipleDelete()		
     {
 
         $user_id = $_POST['id'];

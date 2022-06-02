@@ -1,0 +1,36 @@
+Returned data
+Once DataTables has made a request for data, with the above parameters sent to the server, it expects JSON data to be returned to it, with the following parameters set:
+
+
+draw= the draw counter that this object is a response to - from the draw parameter sent as part of the data request.
+
+recordsTotal = Total record before filtering
+
+
+recordsFiltered: Total record after filtering
+
+data: the data displayded on table it is this is an array of data source objects, one for each row, which will be used by DataTables
+
+error:  If an error occurs during the running of the server-side processing script, you can inform the user of this error by passing back the error message to be displayed using this parameter. Do not include if there is no error.
+
+
+
+
+In addition to the above parameters which control the overall table, 
+
+
+
+DataTables can use the following optional parameters on each individual row's data source object to perform automatic actions for you:
+
+
+
+DT-RowId=Set the ID property of the tr node to this value
+
+
+DT_RowClass = Add this class to the tr node
+
+
+DT_RowData: Add the data contained in the object to the row using the jQuery data()  method to set the data, which can also then be used for later retrieval
+
+DT_RowAttr	Add the data contained in the object to the row tr node as attributes. 
+

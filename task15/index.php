@@ -91,7 +91,9 @@ include 'datatable.php';
                 <thead class="bg-primary text-white text-center">
                     <tr>
                         <th>Delete</th>
+                        <br>
                         <input= "hidden" value="">
+
                             <th class="head-col" data-dir="" data-name="id">Id<span class="arrow text-white"></span></th>
                             <th class="head-col" data-dir="" data-name="fname">Name<span class="arrow text-white"></span></th>
                             <th class="head-col" data-dir="" data-name="lname">Surname <span class="arrow text-white"></span></th>
@@ -109,12 +111,11 @@ include 'datatable.php';
                 </thead>
                 <tbody id="response" class="pag_data" data>
                     <br>
-
+                      <div id="error-message"></div>
+                      <div id="success-message"></div>
                 </tbody>
             </table>
-            <div id="error-message"></div>
-            <div id="success-message"></div>
-            <div class="pag-data"></div>
+
 
 
             <script>
@@ -157,17 +158,18 @@ include 'datatable.php';
                 $(document).ready(function() {
                     datatable();
 
-                    $(".head-col").click(function(e) {
+                    $(".head-col").click(function() {
                         var data_name = $(this).attr("data-name");
                         var data_dir = $(this).attr("data-dir");
-
+                        
                         var arrow = "";
-                        if (data_dir == "" || data_dir == "ASC") {
+                        if (data_dir == "ASC") {
                             $(this).attr("data-dir", "DESC");
+                            data_dir = "DESC"
 
                         } else {
                             $(this).attr("data-dir", "ASC");
-
+                            data_dir = "ASC"
                         }
                         $(".arrow").html("");
                         if (data_dir == "ASC") {
@@ -230,12 +232,10 @@ include 'datatable.php';
                                 },
                                 success: function(data) {
                                     console.log(data);
-                                    if (data == true) {
-                                        $("#success-message").html("data delete successfully.").slideDown();
-                                        $("#error-message").slideUp();
+                                    if (data = 1) {
+                                      alert("Your data has been deleted");
                                     } else {
-                                        $("#error-message").html("data  delete ").slideDown();
-                                        $("#success-message").slideUp();
+                                        alert("Your data can't be deleted");
                                     }
                                 }
                             });
