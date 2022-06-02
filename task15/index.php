@@ -92,18 +92,18 @@ include 'datatable.php';
                     <tr>
                         <th>Delete</th>
                         <input= "hidden" value="">
-                        <th class="head-col" data-dir="" data-name="id">Id<span class= "arrow text-white" ></span></th>
-                        <th class="head-col" data-dir="" data-name="fname">Name<span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="lname">Surname <span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="dob">Birthdate<span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="age">Age <span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="email">Email <span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="mobno">Mobile <span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="src1">Source <span class= "arrow text-white"></span></th>
-                        <th class="head-col" data-dir="" data-name="camp">Campign </th>
-                        <th class="head-col" data-dir="" data-name="country">Country</th>
+                            <th class="head-col" data-dir="" data-name="id">Id<span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="fname">Name<span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="lname">Surname <span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="dob">Birthdate<span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="age">Age <span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="email">Email <span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="mobno">Mobile <span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="src1">Source <span class="arrow text-white"></span></th>
+                            <th class="head-col" data-dir="" data-name="camp">Campign </th>
+                            <th class="head-col" data-dir="" data-name="country">Country</th>
 
-                        <th>Action</th>
+                            <th>Action</th>
 
                     </tr>
                 </thead>
@@ -122,10 +122,12 @@ include 'datatable.php';
                     var limitdata = $("#limit").val();
                     var sort = $("#sort").val();
                     var searchdata = $("#searchs").val();
+
+
                     if (searchdata <= 3) {
                         $("#err")
                     }
-                    
+
                     $.ajax({
                         type: "POST",
                         url: "datatable.php",
@@ -156,9 +158,9 @@ include 'datatable.php';
                     datatable();
 
                     $(".head-col").click(function(e) {
-                        //alert();
                         var data_name = $(this).attr("data-name");
                         var data_dir = $(this).attr("data-dir");
+
                         var arrow = "";
                         if (data_dir == "" || data_dir == "ASC") {
                             $(this).attr("data-dir", "DESC");
@@ -168,16 +170,14 @@ include 'datatable.php';
 
                         }
                         $(".arrow").html("");
-                        if(data_dir == "ASC")
-                        {
-                            $(this).find(".arrow").html("<img src = 'arrow-up.svg'>");
-                        }
-                        else{
-                            $(this).find(".arrow").html("<img src = 'arrow-down.svg'>");
+                        if (data_dir == "ASC") {
+                            $(this).find(".arrow").html("<img src = 'arrow-up.svg' style = 'width:20px'>");
+                        } else {
+                            $(this).find(".arrow").html("<img src = 'arrow-down.svg' style = 'width:20px'>");
 
                         }
-                
-                       
+
+
                         datatable(1, data_name, data_dir);
 
                     });
@@ -185,15 +185,16 @@ include 'datatable.php';
                 });
 
                 $(document).on("click", ".delete-btn", function() {
-                    var stuId = $(this).data("id");
+                    confirm("Are you sure Want to delete?")
+                    var id = $(this).data("id");
+
                     var element = this;
-                    // alert(stuId);
 
                     $.ajax({
                         url: "datatable.php",
                         type: "POST",
                         data: {
-                            id: stuId
+                            id: id
                         },
                         success: function(data) {
                             //console.log(data)
@@ -243,7 +244,6 @@ include 'datatable.php';
 
                     };
                 });
-               
             </script>
         </div>
 

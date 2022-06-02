@@ -1,7 +1,7 @@
 <?php
 class Datatable
 {
-# for connect
+    # for connect
     public function __construct()
     {
         $this->conn = mysqli_connect("localhost", "root", "12345", "country_city_statedetails");
@@ -21,21 +21,17 @@ class Datatable
         $output = "";
         $total_res = mysqli_query($this->conn, $db_query);
         $total_record  = mysqli_num_rows($total_res);
-        if ($_POST['searchdata']) 
-        {   #for search data
+        if ($_POST['searchdata']) {   #for search data
             $searchdata = $_POST['searchdata'];
             $db_query .= " " . "WHERE" . " " . "fname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "lname" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "dob" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "age" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "email" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%' " . "OR" . " " .  "mobno" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "src1" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "camp" . " " . "LIKE" . " " . "'%" . $searchdata . "%'" . "OR" . " " .  "country" . " " . "LIKE" . " " . "'%" . $searchdata . "%'";
         }
-        $data_name = $_POST['data_name']?$_POST['data_name']:"id";
-        $data_dir = $_POST['data_dir'] ? $_POST['data_dir']:"ASC" ;
+        $data_name = $_POST['data_name'] ? $_POST['data_name'] : "id";
+        $data_dir = $_POST['data_dir'] ? $_POST['data_dir'] : "ASC";
 
-        if ($data_name && $data_dir ) 
-        {   # for sorting
-           
+        if ($data_name && $data_dir) {   # for sorting
+
             $db_query .= " " . "ORDER BY" . " " . $data_name . " " . $data_dir;
             echo $db_query;
-            
-
         }
         $limit = ($_POST['limitdata'] && $_POST['limitdata'] != "") ? $_POST['limitdata'] : (($_POST['limitdata'] == "")  ? $total_record : 5);
         $offset = ($page - 1) * $limit;
@@ -64,7 +60,7 @@ class Datatable
                 <td> {$row['src1']}</td>
                 <td> {$row['camp']}</td>
                 <td> {$row['country']}</td>
-                <td><a href ='index.php?delete_id:{$row['id']}'>Delete</a></td>
+                <td><button class='delete-btn' data-id='{$row["id"]}'>Delete</button></td>
                 </div>";
             }
             $output .= "<div class = 'pagination' id='pagination'  >";
@@ -84,8 +80,9 @@ class Datatable
         $id = $_POST['id'];
         $query = "DELETE FROM persondetails WHERE id =$id";
         $sql = mysqli_query($this->conn, $query);
+        //echo $sql;
         if ($sql == true) {
-            echo "Record  delete successfully";
+            echo 1;
         }
     }
 
@@ -110,7 +107,8 @@ $obj = new Datatable();
 $delete = new Datatable();
 $rowobj = new Datatable();
 if (count($_POST) > 0) {
-$obj->tableData();
-$delete->multipleDelete();
-$rowobj->deleteRecord();
+    $obj->tableData();
+    $delete->deleteRecord();
+
+    $delete->multipleDelete();
 }
