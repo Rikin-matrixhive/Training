@@ -3,12 +3,13 @@
 class Datatable
 {
 
-    public function __construct()
+    public static function Connect()
     {
-        $this->conn = mysqli_connect("localhost", "root", "12345", "country_city_statedetails");
+        $conn = mysqli_connect("localhost", "root", "12345", "country_city_statedetails");
+        return $conn;
     }
 }
-class Tabledata extends Datatable
+class Tabledata
 {
 
     public function Fetch_Data()
@@ -50,10 +51,10 @@ class Tabledata extends Datatable
             $sqlRec = $where;
         }
         $sqlRec .=  " ORDER BY " . $coloums[$parameters['order'][0]['column']] . "   " . $parameters['order'][0]['dir'] . "  LIMIT " . $parameters['start'] . " ," . $parameters['length'] . " ";
-        $queryTot = mysqli_query($this->conn, $sqlTot) or die("database error:" . mysqli_error($this->conn));
+        $queryTot = mysqli_query(Datatable::Connect(), $sqlTot) or die("database error:" . mysqli_error(Datatable::Connect()));
         $totalRecords = mysqli_num_rows($queryTot);
 
-        $queryRecords = mysqli_query($this->conn, $sqlRec) or die("error to fetch employees data");
+        $queryRecords = mysqli_query(Datatable::Connect(), $sqlRec) or die("error to fetch employees data");
         while ($row = mysqli_fetch_row($queryRecords)) {
             $data[] = $row;
         }
@@ -66,7 +67,7 @@ class Tabledata extends Datatable
         echo json_encode($json_data);  // send data as json format
     }
 }
-
+    
 $Obj = new Tabledata();
 if (count($_POST) > 0) {
     $Obj->Fetch_Data();
